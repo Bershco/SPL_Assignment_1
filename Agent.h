@@ -15,6 +15,7 @@ public:
     void step(Simulation &);
 
     void clone(Party& p);
+    bool offered(Party& p);
 
 private:
     int mAgentId;
