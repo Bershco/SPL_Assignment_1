@@ -23,6 +23,7 @@ public:
     const vector<vector<int>> getPartiesByCoalitions() const;
 
     int getNumOfAgents() const;
+    const Agent& newAgent(int pId, SelectionPolicy* _sp);
 
 private:
     Graph mGraph;

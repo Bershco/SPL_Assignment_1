@@ -1,7 +1,9 @@
 #include "Coalition.h"
 
-Coalition::Coalition(const Party& p) : mandates(0), parties(vector<Party>()), agents(vector<Agent>()) {
+Coalition::Coalition(const Party& p, const Agent& a, Simulation* s) : mandates(0), parties(vector<Party>()), agents(vector<Agent>()) {
 	parties.push_back(p);
+	agents.push_back(a);
+	_s = s;
 }
 
 int Coalition::getMandates() const
@@ -13,6 +15,15 @@ void Coalition::join(Party& p)
 {
 	parties.push_back(p);
 	mandates += p.getMandates();
+	cloneAgent();
+}
+
+void Coalition::cloneAgent()
+{
+	int partyId = parties.at(parties.size() - 1).getId();
+	SelectionPolicy* selPol = agents.at(0).getSelectionPolicy();
+	Agent a = _s->newAgent(partyId,selPol);
+	agents.push_back(std::move(a));
 }
 
 bool Coalition::checkOffers(Party& p) const

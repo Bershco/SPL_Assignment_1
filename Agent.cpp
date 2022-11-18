@@ -44,3 +44,8 @@ bool Agent::offered(Party& p)
     }
     return false;
 }
+
+SelectionPolicy* Agent::getSelectionPolicy() const
+{
+    return mSelectionPolicy;
+}
