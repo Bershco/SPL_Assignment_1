@@ -59,7 +59,7 @@ void Party::step(Simulation &s)
     if (isCollectingOffers()) {
         timer++;
         if (timer >= 3) {
-            offerer->join(*this); //TODO: implement Coalition::join(Party& s); and also make sure to clone agent in it.
+            offerer->join(*this);
         }
     }
 }

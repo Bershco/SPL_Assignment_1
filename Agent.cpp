@@ -22,3 +22,8 @@ void Agent::step(Simulation &sim)
     // TODO: implement this method
     int id = mSelectionPolicy->select();
 }
+
+SelectionPolicy* Agent::getSelectionPolicy() const
+{
+    return mSelectionPolicy;
+}
