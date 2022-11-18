@@ -21,8 +21,21 @@ void Simulation::step()
 
 bool Simulation::shouldTerminate() const
 {
-    // TODO implement this method
-    return true;
+    bool majority = false, noMoreOptions = false;
+    int numOfParties = mGraph.getNumVertices();
+    int numOfJoinedParties = 0;
+    for (int i = 0; i < numOfParties; i++) {
+        Party p = getParty(i);
+        if (p.isRelativeMajority()) {
+            majority = true;
+            break;
+        }
+        if (p.getState() == Joined)
+            numOfJoinedParties++;
+    }
+    if (numOfParties == numOfJoinedParties)
+        noMoreOptions = true;
+    return majority || noMoreOptions;
 }
 
 const Graph &Simulation::getGraph() const

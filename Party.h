@@ -32,6 +32,7 @@ public:
     bool selfCheck() const; //TODO: check if parameters are needed here.
     const vector<Party> getNeighbors() const;
     void offer(Coalition& c) const;
+    bool isRelativeMajority() const;
 
 
 private:

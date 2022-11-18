@@ -32,6 +32,11 @@ int Party::getId() const
     return mId;
 }
 
+bool Party::isRelativeMajority() const
+{
+    return getMandates() > 60;
+}
+
 void Party::step(Simulation &s)
 {
     // TODO: implement this method
