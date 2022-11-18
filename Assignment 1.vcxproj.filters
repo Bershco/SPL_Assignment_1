@@ -42,6 +42,9 @@
     <ClCompile Include="JoinPolicy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Coalition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Simulation.h">
