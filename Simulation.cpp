@@ -21,13 +21,13 @@ void Simulation::step()
 
 bool Simulation::shouldTerminate() const
 {
-    bool majority = false, noMoreOptions = false;
+    bool relativeMajority = false, noMoreOptions = false;
     int numOfParties = mGraph.getNumVertices();
     int numOfJoinedParties = 0;
     for (int i = 0; i < numOfParties; i++) {
         Party p = getParty(i);
         if (p.isRelativeMajority()) {
-            majority = true;
+            relativeMajority = true;
             break;
         }
         if (p.getState() == Joined)
@@ -35,7 +35,7 @@ bool Simulation::shouldTerminate() const
     }
     if (numOfParties == numOfJoinedParties)
         noMoreOptions = true;
-    return majority || noMoreOptions;
+    return relativeMajority || noMoreOptions;
 }
 
 const Graph &Simulation::getGraph() const
