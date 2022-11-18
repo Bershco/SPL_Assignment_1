@@ -8,10 +8,11 @@ public:
 	Coalition(const Party& p);
 
 	int getMandates() const;
-	void join(Party& p) const;
+	void join(Party& p);
 	bool checkOffers(Party& p) const;
 
 private:
 	int mandates;
 	vector<Party> parties;
+	vector<Agent> agents;
 };
