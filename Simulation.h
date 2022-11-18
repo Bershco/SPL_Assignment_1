@@ -4,6 +4,7 @@
 
 #include "Graph.h"
 #include "Agent.h"
+#include "Party.h"
 
 using std::string;
 using std::vector;
@@ -20,6 +21,8 @@ public:
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
+
+    int getNumOfAgents() const;
 
 private:
     Graph mGraph;
