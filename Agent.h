@@ -16,6 +16,7 @@ public:
 
     void clone(Party& p);
     bool offered(Party& p);
+    SelectionPolicy* getSelectionPolicy() const;
 
 private:
     int mAgentId;
