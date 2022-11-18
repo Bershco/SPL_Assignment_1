@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Agent.h"
+#include "Coalition.h"
 
 using std::vector;
 using std::string;
 
-class Coalition;
 class JoinPolicy;
 class Simulation;
 
@@ -29,7 +30,9 @@ public:
     int getId() const;
 
 
-    bool selfCheck() const; //TODO: check if parameters are needed here.
+    int getTimer() const;
+    bool isJoined() const;
+    bool isCollectingOffers() const;
     const vector<Party> getNeighbors() const;
     void offer(Coalition& c) const;
     bool isRelativeMajority() const;
@@ -42,5 +45,6 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
 
+    Coalition *offerer; //TODO: check maybe this can turn into reference in the future
     int timer;
 };
