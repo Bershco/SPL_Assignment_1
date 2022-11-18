@@ -7,10 +7,11 @@ class Coalition {
 public:
 	Coalition(const Party& p);
 
-	int mandates;
-	vector<Party> parties;
-
 	int getMandates() const;
 	void join(Party& p) const;
 	bool checkOffers(Party& p) const;
+
+private:
+	int mandates;
+	vector<Party> parties;
 };
