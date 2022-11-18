@@ -4,8 +4,6 @@ Coalition::Coalition(const Party& p) : mandates(0), parties(vector<Party>()), ag
 	parties.push_back(p);
 }
 
-Coalition::Coalition() {}
-
 int Coalition::getMandates() const
 {
 	return mandates;

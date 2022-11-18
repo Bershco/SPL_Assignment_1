@@ -6,7 +6,6 @@ using std::vector;
 class Coalition {
 public:
 	Coalition(const Party& p);
-	Coalition();
 
 	int getMandates() const;
 	void join(Party& p);
