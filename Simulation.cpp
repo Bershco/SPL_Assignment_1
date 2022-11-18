@@ -65,3 +65,10 @@ int Simulation::getNumOfAgents() const
 {
     return mAgents.size();
 }
+
+const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
+{
+    Agent a(mAgents.size(), pId, _sp);
+    mAgents.push_back(a);
+    return a;
+}
