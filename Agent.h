@@ -16,9 +16,10 @@ public:
 
     void clone(Party& p);
     bool offered(Party& p);
-
+    int offeredParty;
 private:
     int mAgentId;
     int mPartyId;
     SelectionPolicy *mSelectionPolicy;
+    Coalition* coal;
 };
