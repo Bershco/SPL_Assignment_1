@@ -1,5 +1,7 @@
 #include "Simulation.h"
 
+using std::move;
+
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
 {
     // You can change the implementation of the constructor, but not the signature!
@@ -7,13 +9,33 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 
 void Simulation::step()
 {
-    // TODO: implement this method
+    int numOfParties = mGraph.getNumVertices();
+    for (int i = 0; i < numOfParties; i++) {
+        Party p = getParty(i);
+        p.step(*this);
+    }
+    for (Agent& a : mAgents) {
+        a.step(*this);
+    }
 }
 
 bool Simulation::shouldTerminate() const
 {
-    // TODO implement this method
-    return true;
+    bool majority = false, noMoreOptions = false;
+    int numOfParties = mGraph.getNumVertices();
+    int numOfJoinedParties = 0;
+    for (int i = 0; i < numOfParties; i++) {
+        Party p = getParty(i);
+        if (p.isRelativeMajority()) {
+            majority = true;
+            break;
+        }
+        if (p.getState() == Joined)
+            numOfJoinedParties++;
+    }
+    if (numOfParties == numOfJoinedParties)
+        noMoreOptions = true;
+    return majority || noMoreOptions;
 }
 
 const Graph &Simulation::getGraph() const
@@ -37,4 +59,9 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     // TODO: you MUST implement this method for getting proper output, read the documentation above.
     return vector<vector<int>>();
+}
+
+int Simulation::getNumOfAgents() const
+{
+    return mAgents.size();
 }

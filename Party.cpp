@@ -5,6 +5,7 @@ Party::Party(int id, string name, int mandates, JoinPolicy *jp) :
 {
     // You can change the implementation of the constructor, but not the signature!
     timer = 0;
+    offerer = 0;
 }
 
 State Party::getState() const
@@ -32,7 +33,33 @@ int Party::getId() const
     return mId;
 }
 
+int Party::getTimer() const
+{
+    return timer;
+}
+
+bool Party::isJoined() const
+{
+    return mState == Joined;
+}
+
+bool Party::isCollectingOffers() const
+{
+    return mState == CollectingOffers;
+}
+
+bool Party::isRelativeMajority() const
+{
+    return getMandates() > 60;
+}
+
 void Party::step(Simulation &s)
 {
-    // TODO: implement this method
+    if (isJoined()) return;
+    if (isCollectingOffers()) {
+        timer++;
+        if (timer >= 3) {
+            offerer->join(*this); //TODO: implement Coalition::join(Party& s); and also make sure to clone agent in it.
+        }
+    }
 }
