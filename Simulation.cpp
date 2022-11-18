@@ -9,7 +9,6 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 
 void Simulation::step()
 {
-    // TODO: finish implementing this method
     int numOfParties = mGraph.getNumVertices();
     for (int i = 0; i < numOfParties; i++) {
         Party p = getParty(i);
