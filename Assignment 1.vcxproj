@@ -31,12 +31,16 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="Coalition.h" />
     <ClInclude Include="JoinPolicy.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Party.h" />
     <ClInclude Include="SelectionPolicy.h" />
     <ClInclude Include="Simulation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\OneDrive - post.bgu.ac.il\Desktop\readme.docx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

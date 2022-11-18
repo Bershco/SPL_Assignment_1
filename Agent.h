@@ -14,6 +14,8 @@ public:
     int getId() const;
     void step(Simulation &);
 
+    void clone(Party& p);
+
 private:
     int mAgentId;
     int mPartyId;
