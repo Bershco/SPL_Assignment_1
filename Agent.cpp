@@ -25,9 +25,8 @@ void Agent::step(Simulation &sim)
     // TODO: implement this method
 
     
-    vector<Party> neighbours = (sim.getParty(mPartyId)).getNeighbors();
-    Party selected = mSelectionPolicy->select(neighbours);
-    selected.offer(coal);
+    Party selected = mSelectionPolicy->select(sim.getGraph(),mPartyId);
+    selected.offer(*coal);
 
 }
 
