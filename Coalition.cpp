@@ -6,6 +6,8 @@ Coalition::Coalition(const Party& p, const Agent& a, Simulation* s) : mandates(0
 	_s = s;
 }
 
+Coalition::Coalition() {}
+
 int Coalition::getMandates() const
 {
 	return mandates;
@@ -23,10 +25,11 @@ void Coalition::cloneAgent()
 	int partyId = parties.at(parties.size() - 1).getId();
 	SelectionPolicy* selPol = agents.at(0).getSelectionPolicy();
 	Agent a = _s->newAgent(partyId,selPol);
-	agents.push_back(std::move(a));
+	a.setCoal(*this);
+	agents.push_back(a);
 }
 
-bool Coalition::checkOffers(Party& p) const
+bool Coalition::checkOffers(const Party& p) const
 {
 	for (auto a : agents)
 		if (a.offered(p))

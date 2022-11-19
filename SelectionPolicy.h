@@ -3,17 +3,16 @@
 
 class SelectionPolicy {
 public:
-	virtual const Party& select(const vector<Party>& p) const = 0;
-	Graph g;
+	virtual const Party& select(const Graph& g, int pId, const Agent& a) const = 0;
 };
 
 class MandatesSelectionPolicy: public SelectionPolicy{ 
 public:
-	const Party& select(const vector<Party>& p) const;
+	const Party& select(const Graph& g, int pId, const Agent& a) const;
 
 };
 
 class EdgeWeightSelectionPolicy: public SelectionPolicy{
 public:
-	const Party& select(const vector<Party>& p) const;
+	const Party& select(const Graph& g, int pId, const Agent& a) const;
 };

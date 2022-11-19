@@ -3,16 +3,15 @@
 
 class JoinPolicy {
 public:
-	virtual const Party& join() const = 0;
-	Graph g;
+	virtual const Coalition& join(vector<Coalition&>) const = 0;
 };
 
 class MandatesJoinPolicy : public JoinPolicy {
 public:
-	const Party& join() const;
+	const Coalition& join(vector<Coalition&>) const;
 };
 
 class LastOfferJoinPolicy : public JoinPolicy {
 public:
-	const Party& join() const;
+	const Coalition& join(vector<Coalition&>) const;
 };

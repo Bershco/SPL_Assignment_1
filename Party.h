@@ -33,8 +33,7 @@ public:
     int getTimer() const;
     bool isJoined() const;
     bool isCollectingOffers() const;
-    const vector<Party> getNeighbors() const;
-    void offer(Coalition& c) const;
+    void receiveOffer(Coalition& c); //TODO Implement this method.
     bool isRelativeMajority() const;
 
 
@@ -45,6 +44,6 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
 
-    Coalition *offerer; //TODO: check maybe this can turn into reference in the future
+    vector<Coalition&> offerers;
     int timer;
 };
