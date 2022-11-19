@@ -44,6 +44,7 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
         }
         currPartyInd++;
     }
+    //TODO implement what happens if no party has been found properly.
     return getParty(maxMandatePartyId);
 }
 
@@ -60,6 +61,7 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
             }
         }
     }
+    //TODO implement what happens if no party has been found properly.
     return getParty(retPartyId);
 
 }

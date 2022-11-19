@@ -19,7 +19,7 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
+    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this); //TODO - see what to do if no party has been selected
     offeredParties.push_back(p);
     p.receiveOffer(coal);
 }
