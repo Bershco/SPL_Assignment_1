@@ -25,32 +25,35 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
-const Party& Graph::selectPartyByMandates(int pId) const {
-    int mandates = 0, maxMandateParty = -1;
+const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
+    int mandates = 0, maxMandatePartyId = -1;
     int currPartyInd = 0;
     for (int p : mEdges[pId]) {
-        if (p != 0) {
-            Party check = getParty(currPartyInd);
-            int checkMandates = check.getMandates();
+        Coalition c = a.getCoalition();
+        if (p != 0 && !( (getParty(currPartyInd)).isJoined() ) && !c.checkOffers(getParty(currPartyInd)) ) {
+            //Make sure they are neighbors, the party isn't 'Joined' and that a's coalition didn't already offer that party this iteration.
+            int checkMandates = (getParty(currPartyInd)).getMandates();
             if (checkMandates > mandates)
             {
-                maxMandateParty = currPartyInd;
+                maxMandatePartyId = currPartyInd;
                 mandates = checkMandates;
             }
             //Note: because we're going through the indices in ascending order, 
             //there's no need to find the smaller Id value in the occurence of two equaling parties, 
-            //because it will be present.
+            //because the first will already be present.
         }
         currPartyInd++;
     }
-    return getParty(maxMandateParty);
+    return getParty(maxMandatePartyId);
 }
 
-const Party& Graph::selectPartyByEdgeWeight(int pId) const {
+const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
     int maxEdgeWeight = 0;
     int retPartyId = -1;
     for (int i = 0; i < mEdges[pId].size(); i++) {
-        if (mEdges[pId][i] != 0) {
+        Coalition c = a.getCoalition();
+        if (mEdges[pId][i] != 0 && !( (getParty(i)).isJoined() ) && !c.checkOffers(getParty(i)) ) { 
+            //Make sure they are neighbors, and the party isn't 'Joined' and that a's coalition didn't already offer that party this iteration.
             if (mEdges[pId][i] > maxEdgeWeight) {
                 maxEdgeWeight = mEdges[pId][i];
                 retPartyId = i;
