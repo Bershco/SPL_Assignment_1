@@ -1,11 +1,17 @@
 #include "JoinPolicy.h"
 
-const Party& MandatesJoinPolicy::join() const
+const Coalition& MandatesJoinPolicy::join(vector<Coalition&> offerers) const
 {
-	// // O: insert return statement here
+	Coalition _c = offerers.at(0);
+	int maxMandates = _c.getMandates();
+	for (auto c : offerers) {
+		if (c.getMandates() > maxMandates)
+			_c = c;
+	}
+	return _c;
 }
 
-const Party& LastOfferJoinPolicy::join() const
+const Coalition& LastOfferJoinPolicy::join(vector<Coalition&> offerers) const
 {
-	// // O: insert return statement here
+	return offerers.at(offerers.size() - 1);
 }
