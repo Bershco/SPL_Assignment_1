@@ -7,11 +7,12 @@ using std::vector;
 class Coalition {
 public:
 	Coalition(const Party& p, const Agent& a, Simulation* s);
+	Coalition();
 
 	int getMandates() const;
 	void join(Party& p);
 	void cloneAgent();
-	bool checkOffers(Party& p) const;
+	bool checkOffers(const Party& p) const;
 
 private:
 	int mandates;
