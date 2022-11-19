@@ -25,11 +25,10 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
-const Party& Graph::selectPartyByMandates(const Party& currParty) const {
-    int partyID = currParty.getId();
+const Party& Graph::selectPartyByMandates(int pId) const {
     int mandates = 0, maxMandateParty = -1;
     int currPartyInd = 0;
-    for (int p : mEdges[partyID]) {
+    for (int p : mEdges[pId]) {
         if (p != 0) {
             Party check = getParty(currPartyInd);
             int checkMandates = check.getMandates();
@@ -47,6 +46,17 @@ const Party& Graph::selectPartyByMandates(const Party& currParty) const {
     return getParty(maxMandateParty);
 }
 
-const Party& Graph::selectPartyByEdgeWeight(const Party& currParty) const {
-    //TODO: Implement SPBEW()
+const Party& Graph::selectPartyByEdgeWeight(int pId) const {
+    int maxEdgeWeight = 0;
+    int retPartyId = -1;
+    for (int i = 0; i < mEdges[pId].size(); i++) {
+        if (mEdges[pId][i] != 0) {
+            if (mEdges[pId][i] > maxEdgeWeight) {
+                maxEdgeWeight = mEdges[pId][i];
+                retPartyId = i;
+            }
+        }
+    }
+    return getParty(retPartyId);
+
 }
