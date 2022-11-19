@@ -5,10 +5,7 @@
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) :
     mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
-{
-    offeredParty = -1;
-    
-}
+{}
 
 int Agent::getId() const
 {
@@ -22,12 +19,9 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    // TODO: implement this method
-
-    
-    Party selected = mSelectionPolicy->select(sim.getGraph(),mPartyId);
-    selected.offer(*coal);
-
+    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
+    offeredParties.push_back(p);
+    p.receiveOffer(coal);
 }
 
 void Agent::clone(Party& p)
@@ -35,11 +29,12 @@ void Agent::clone(Party& p)
     throw _exception();
 }
 
-bool Agent::offered(Party& p)
+bool Agent::offered(const Party& p) const
 {
-
-    if (p.getId() == offeredParty) {
-        return true;
+    for (auto _p : offeredParties) {
+        if (p.getId() == _p.getId()) {
+            return true;
+        }
     }
     return false;
 }
@@ -47,4 +42,14 @@ bool Agent::offered(Party& p)
 SelectionPolicy* Agent::getSelectionPolicy() const
 {
     return mSelectionPolicy;
+}
+
+void Agent::setCoal(const Coalition& c)
+{
+    coal = c;
+}
+
+const Coalition& Agent::getCoalition() const
+{
+    return coal;
 }

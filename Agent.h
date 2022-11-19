@@ -15,16 +15,16 @@ public:
     void step(Simulation &);
 
     void clone(Party& p);
-    bool offered(Party& p);
-
+    bool offered(const Party& p) const;
     SelectionPolicy* getSelectionPolicy() const;
-
-    int offeredParty;
+    void setCoal(const Coalition& c);
+    const Coalition& getCoalition() const;
 
 
 private:
+    vector<Party> offeredParties;
     int mAgentId;
     int mPartyId;
     SelectionPolicy *mSelectionPolicy;
-    Coalition* coal;
+    Coalition coal;
 };
