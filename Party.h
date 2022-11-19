@@ -33,7 +33,7 @@ public:
     int getTimer() const;
     bool isJoined() const;
     bool isCollectingOffers() const;
-    void receiveOffer(Coalition& c); //TODO Implement this method.
+    void receiveOffer(Coalition& c);
     bool isRelativeMajority() const;
 
 
