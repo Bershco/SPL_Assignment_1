@@ -17,14 +17,13 @@ void Coalition::join(Party& p)
 {
 	parties.push_back(p);
 	mandates += p.getMandates();
-	cloneAgent();
+	cloneAgent(p.getId());
 }
 
-void Coalition::cloneAgent()
+void Coalition::cloneAgent(int pId)
 {
-	int partyId = parties.at(parties.size() - 1).getId();
 	SelectionPolicy* selPol = agents.at(0).getSelectionPolicy();
-	Agent a = _s->newAgent(partyId,selPol);
+	Agent a = _s->newAgent(pId,selPol);
 	a.setCoal(*this);
 	agents.push_back(a);
 }
