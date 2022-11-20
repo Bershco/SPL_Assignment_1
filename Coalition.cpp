@@ -36,5 +36,19 @@ bool Coalition::checkOffers(const Party& p) const
 	return false;
 }
 
+bool Coalition::operator==(Coalition c)
+{
+	return ((mandates == c.mandates) && (parties == c.parties) && (agents == c.agents) && (_s == c._s));
+}
+
+vector<int> Coalition::getPartyIDs() const
+{
+	vector<int> partyIDs;
+	for (auto p : parties) {
+		partyIDs.push_back(p.getId());
+	}
+	return partyIDs;
+}
+
 
 
