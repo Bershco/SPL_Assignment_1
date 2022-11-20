@@ -44,6 +44,10 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
         }
         currPartyInd++;
     }
+    if (maxMandatePartyId == -1) {
+        Party *dummy = new Party(-10, "dummy", 0, nullptr);
+        return *dummy;
+    }
     //TODO implement what happens if no party has been found properly.
     return getParty(maxMandatePartyId);
 }
@@ -60,6 +64,10 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
                 retPartyId = i;
             }
         }
+    }
+    if (retPartyId == -1) {
+        Party* dummy = new Party(-10, "dummy", 0, nullptr);
+        return *dummy;
     }
     //TODO implement what happens if no party has been found properly.
     return getParty(retPartyId);
