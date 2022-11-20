@@ -50,6 +50,7 @@ bool Party::isCollectingOffers() const
 
 void Party::receiveOffer(Coalition& c)
 {
+    if (mState == Waiting) setState(CollectingOffers);
     offerers.push_back(c);
 }
 
@@ -61,12 +62,12 @@ bool Party::isRelativeMajority() const
 void Party::step(Simulation &s)
 {
     if (isJoined()) return;
-    if (isCollectingOffers()) { //TODO make sure to set collectingOffers when the first agent offers a party.
+    if (isCollectingOffers()) {
         timer++;
         if (timer >= 3) {
             Coalition bestOfferer = mJoinPolicy->join(offerers);
-            bestOfferer.join(*this);
             setState(Joined);
+            bestOfferer.join(*this);
         }
     }
 }

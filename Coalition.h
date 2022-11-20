@@ -11,7 +11,7 @@ public:
 
 	int getMandates() const;
 	void join(Party& p);
-	void cloneAgent();
+	void cloneAgent(int pId);
 	bool checkOffers(const Party& p) const;
 
 private:
