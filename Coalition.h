@@ -13,6 +13,8 @@ public:
 	void join(Party& p);
 	void cloneAgent(int pId);
 	bool checkOffers(const Party& p) const;
+	bool operator==(Coalition c);
+	vector<int> getPartyIDs() const;
 
 private:
 	int mandates;
