@@ -58,7 +58,25 @@ const Party &Simulation::getParty(int partyId) const
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     // TODO: you MUST implement this method for getting proper output, read the documentation above.
-    return vector<vector<int>>();
+    vector<Coalition> allCoalitions;
+    for (const auto& a : mAgents) {
+        bool same = false;
+        Coalition _c = a.getCoalition();
+        for (const auto& c : allCoalitions) {
+            if (_c == c) {
+                same = true;
+                break;
+            }
+        }
+        if (same) continue;
+        else allCoalitions.push_back(_c);
+    }
+    vector<vector<int>> coalitionsByPartyID;
+    for (const auto& c : allCoalitions) {
+        coalitionsByPartyID.push_back(c.getPartyIDs());
+    }
+
+    return coalitionsByPartyID;
 }
 
 int Simulation::getNumOfAgents() const
