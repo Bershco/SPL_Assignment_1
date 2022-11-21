@@ -4,6 +4,8 @@
 #include <vector>
 using std::vector;
 
+class Agent;
+
 class Coalition {
 public:
 	Coalition(const Party& p, const Agent& a, Simulation* s);
