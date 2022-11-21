@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COALITION
+#define COALITION
 
 #include <vector>
 #include "Party.h"
@@ -33,3 +34,5 @@ private:
 	vector<Agent> agents;
 	Simulation* _s;
 };
+
+#endif

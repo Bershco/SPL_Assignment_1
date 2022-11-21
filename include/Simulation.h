@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SIMULATION
+#define SIMULATION
 
 #include <vector>
 
@@ -31,3 +32,5 @@ private:
     Graph mGraph;
     vector<Agent> mAgents;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AGENT
+#define AGENT
 
 #include <vector>
 using std::vector;
@@ -38,3 +39,5 @@ private:
     SelectionPolicy *mSelectionPolicy;
     Coalition coal;
 };
+
+#endif
