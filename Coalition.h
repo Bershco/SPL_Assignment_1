@@ -16,6 +16,13 @@ public:
 	bool operator==(Coalition c);
 	vector<int> getPartyIDs() const;
 
+	//Rule of 5 - because of SelecitonPolicy pointer
+	Coalition(const Coalition& other);              //Copy constructor
+	Coalition& operator=(const Coalition& other);   //Copy assignment operator
+	~Coalition();                               //Destructor
+	Coalition(Coalition&& other);                   //Move constructor
+	Coalition& operator=(Coalition&& other);        //Move assignment operator
+
 private:
 	int mandates;
 	vector<Party> parties;

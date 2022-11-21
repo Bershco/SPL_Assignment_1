@@ -22,8 +22,7 @@ void Coalition::join(Party& p)
 
 void Coalition::cloneAgent(int pId)
 {
-	SelectionPolicy* selPol = agents.at(0).getSelectionPolicy();
-	Agent a = _s->newAgent(pId,selPol);
+	Agent a = _s->newAgent(pId, agents.at(0).getSelectionPolicy());
 	a.setCoal(*this);
 	agents.push_back(a);
 }
