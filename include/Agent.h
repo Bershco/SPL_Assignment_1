@@ -20,8 +20,8 @@ public:
 
     bool offered(const Party& p) const;
     SelectionPolicy* getSelectionPolicy() const;
-    void setCoal(const Coalition& c);
-    const Coalition& getCoalition() const;
+    void setCoalId(int cId);
+    int getCoalId() const;
 
     //Rule of 5 - because of SelecitonPolicy pointer
     Agent(const Agent& other);              //Copy constructor
@@ -33,11 +33,11 @@ public:
 
 
 private:
-    vector<Party> offeredParties;
     int mAgentId;
     int mPartyId;
+    int coalId;
     SelectionPolicy *mSelectionPolicy;
-    Coalition coal;
+    vector<Party> offeredParties;
 };
 
 #endif
