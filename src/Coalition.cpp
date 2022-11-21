@@ -1,16 +1,23 @@
 #include "Coalition.h"
 
-Coalition::Coalition(const Party& p, const Agent& a, Simulation* s) : mandates(0), parties(vector<Party>()), agents(vector<Agent>()) {
+Coalition::Coalition(const Party& p, const Agent& a, Simulation* s) : cId(a.getCoalId()), mandates(p.getMandates()), parties(vector<Party>()), agents(vector<Agent>()), _s(s) {
 	parties.push_back(p);
 	agents.push_back(a);
-	_s = s;
 }
-
-Coalition::Coalition() {}
 
 int Coalition::getMandates() const
 {
 	return mandates;
+}
+
+int Coalition::getId() const {
+	return cId;
+}
+
+void Coalition::checkMandates() {
+	mandates = 0;
+	for (auto p : parties)
+		mandates += p.getMandates();
 }
 
 void Coalition::join(Party& p)
@@ -23,7 +30,7 @@ void Coalition::join(Party& p)
 void Coalition::cloneAgent(int pId)
 {
 	Agent a = _s->newAgent(pId, agents.at(0).getSelectionPolicy());
-	a.setCoal(*this);
+	a.setCoalId(cId);
 	agents.push_back(a);
 }
 
@@ -37,7 +44,15 @@ bool Coalition::checkOffers(const Party& p) const
 
 bool Coalition::operator==(Coalition c)
 {
-	return ((mandates == c.mandates) && (parties == c.parties) && (agents == c.agents) && (_s == c._s));
+	for (int i = 0; i < abs(parties.size()); i++) {
+		if (parties[i].getId() != c.parties[i].getId())
+			return false;
+	}
+	for (int i = 0; i < abs(agents.size()); i++) {
+		if (agents[i].getId() != c.agents[i].getId())
+			return false;
+	}
+	return (mandates == c.mandates) && (_s == c._s);
 }
 
 vector<int> Coalition::getPartyIDs() const
@@ -49,10 +64,8 @@ vector<int> Coalition::getPartyIDs() const
 	return partyIDs;
 }
 
-Coalition::Coalition(const Coalition& other) : mandates(other.mandates), parties(other.parties), agents(other.agents)
-{
-	_s = new Simulation(*other._s);
-}
+Coalition::Coalition(const Coalition& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents),_s(new Simulation(*other._s))
+{}
 
 Coalition& Coalition::operator=(const Coalition& other)
 {
@@ -71,7 +84,7 @@ Coalition::~Coalition()
 	delete _s;
 }
 
-Coalition::Coalition(Coalition&& other) : mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) 
+Coalition::Coalition(Coalition&& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) 
 {
 	other.parties.clear();
 	other.agents.clear();

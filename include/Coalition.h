@@ -20,6 +20,8 @@ public:
 	bool checkOffers(const Party& p) const;
 	bool operator==(Coalition c);
 	vector<int> getPartyIDs() const;
+	int getId() const;
+	void checkMandates();
 
 	//Rule of 5 - because of Simulation pointer
 	Coalition(const Coalition& other);              //Copy constructor
@@ -29,6 +31,7 @@ public:
 	Coalition& operator=(Coalition&& other);        //Move assignment operator
 
 private:
+	int cId;
 	int mandates;
 	vector<Party> parties;
 	vector<Agent> agents;

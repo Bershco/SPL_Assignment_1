@@ -1,8 +1,9 @@
 #include "Agent.h"
 #include "Simulation.h"
 
+
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) :
-    mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
+    mAgentId(agentId), mPartyId(partyId), coalId(-1), mSelectionPolicy(selectionPolicy), offeredParties()
 {}
 
 int Agent::getId() const
@@ -19,7 +20,7 @@ void Agent::step(Simulation &sim)
 {
     Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
     offeredParties.push_back(p);
-    p.receiveOffer(coal);
+    p.receiveOffer(sim.getCoalById(coalId));
 }
 
 bool Agent::offered(const Party& p) const
@@ -37,19 +38,18 @@ SelectionPolicy* Agent::getSelectionPolicy() const
     return mSelectionPolicy;
 }
 
-void Agent::setCoal(const Coalition& c)
+void Agent::setCoalId(int cId)
 {
-    coal = c;
+    coalId = cId;
 }
 
-const Coalition& Agent::getCoalition() const
-{
-    return coal;
+
+int Agent::getCoalId() const{
+    return coalId;
 }
 
-Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId) 
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy->clone(other.mSelectionPolicy)), offeredParties(other.offeredParties)
 {
-    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
     
 }
 
@@ -70,7 +70,7 @@ Agent::~Agent()
     delete mSelectionPolicy;
 }
 
-Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mSelectionPolicy(other.mSelectionPolicy)
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy), offeredParties(other.offeredParties)
 {
     other.mSelectionPolicy = 0; // nullptr
 }

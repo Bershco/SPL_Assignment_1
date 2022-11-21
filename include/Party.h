@@ -36,6 +36,7 @@ public:
     bool isCollectingOffers() const;
     void receiveOffer(Coalition& c);
     bool isRelativeMajority() const;
+    bool receiveOfferFromId(int cId) const;
 
     //Rule of 5 - because of JoinPolicy pointer
     Party(const Party& other);              //Copy constructor
@@ -52,7 +53,7 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
 
-    vector<Coalition&> offerers;
+    vector<Coalition> offerers;
     int timer;
 };
 

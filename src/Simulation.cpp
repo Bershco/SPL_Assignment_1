@@ -7,6 +7,13 @@ using std::move;
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
 {
     // You can change the implementation of the constructor, but not the signature!
+    vector<Coalition> mCoalitions;
+    for (Agent a : mAgents) {
+        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a,this));
+    }
+    for (Coalition c : mCoalitions) {
+        c.checkMandates();
+    }
 }
 
 void Simulation::step()
@@ -62,15 +69,15 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
     vector<Coalition> allCoalitions;
     for (const auto& a : mAgents) {
         bool same = false;
-        Coalition _c = a.getCoalition();
+        int agent_cId = a.getCoalId();
         for (const auto& c : allCoalitions) {
-            if (_c == c) {
+            if (agent_cId == c.getId()) {
                 same = true;
                 break;
             }
         }
         if (same) continue;
-        else allCoalitions.push_back(_c);
+        else allCoalitions.push_back(mCoalitions[agent_cId]);
     }
     vector<vector<int>> coalitionsByPartyID;
     for (const auto& c : allCoalitions) {
@@ -90,4 +97,8 @@ const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
     Agent a(mAgents.size(), pId, _sp);
     mAgents.push_back(a);
     return a;
+}
+
+Coalition& Simulation::getCoalById(int cId) {
+    return mCoalitions[cId];
 }

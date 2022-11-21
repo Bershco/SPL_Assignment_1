@@ -59,6 +59,13 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
+bool Party::receiveOfferFromId(int cId) const {
+    for (Coalition c : offerers) {
+        if (c.getId() == cId)
+            return true;
+    }
+}
+
 Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
 {
     mJoinPolicy = mJoinPolicy->clone(other.mJoinPolicy);
