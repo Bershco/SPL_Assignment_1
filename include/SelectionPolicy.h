@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SELECTIONPOLICY
+#define SELECTIONPOLICY
 
 class Party;
 class Graph;
@@ -24,3 +25,5 @@ public:
 	virtual EdgeWeightSelectionPolicy* clone(MandatesSelectionPolicy* policy);
 	virtual EdgeWeightSelectionPolicy* clone(EdgeWeightSelectionPolicy* policy);
 };
+
+#endif

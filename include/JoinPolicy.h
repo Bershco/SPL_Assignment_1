@@ -1,4 +1,5 @@
-#pragma once
+#ifndef JOINPOLICY
+#define JOINPOLICY
 
 #include <vector>
 using std::vector;
@@ -24,3 +25,5 @@ public:
 	virtual LastOfferJoinPolicy* clone(MandatesJoinPolicy* policy);
 	virtual LastOfferJoinPolicy* clone(LastOfferJoinPolicy* policy);
 };
+
+#endif

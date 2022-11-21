@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PARTY
+#define PARTY
+
 #include <string>
 #include <vector>
 #include "Coalition.h"
@@ -53,3 +55,5 @@ private:
     vector<Coalition&> offerers;
     int timer;
 };
+
+#endif
