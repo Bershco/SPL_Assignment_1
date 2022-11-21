@@ -59,6 +59,21 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
+Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
+{
+    //TODO JOIN POLICY
+}
+
+Party& Party::operator=(const Party& other)
+{
+    // // O: insert return statement here
+    mId = other.mId;
+    mName = other.mName;
+    mMandates = other.mMandates;
+    //JoinPolicy
+    mState = other.mState;
+}
+
 void Party::step(Simulation &s)
 {
     if (isJoined()) return;
