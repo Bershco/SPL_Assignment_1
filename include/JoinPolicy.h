@@ -1,5 +1,9 @@
 #pragma once
-#include "Graph.h"
+
+#include <vector>
+using std::vector;
+
+class Coalition;
 
 class JoinPolicy {
 public:

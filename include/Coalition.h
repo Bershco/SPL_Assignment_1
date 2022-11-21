@@ -1,10 +1,12 @@
 #pragma once
+
+#include <vector>
 #include "Party.h"
 #include "Simulation.h"
-#include <vector>
+#include "Agent.h"
+
 using std::vector;
 
-class Agent;
 
 class Coalition {
 public:

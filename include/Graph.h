@@ -4,6 +4,9 @@
 
 using std::vector;
 
+class Agent;
+class Party;
+
 class Graph
 {
 public:

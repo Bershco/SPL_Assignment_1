@@ -1,4 +1,5 @@
 #include "JoinPolicy.h"
+#include "Coalition.h"
 
 const Coalition& MandatesJoinPolicy::join(vector<Coalition&> offerers) const
 {

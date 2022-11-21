@@ -1,4 +1,7 @@
 #include "SelectionPolicy.h"
+#include "Agent.h"
+#include "Party.h"
+#include "Graph.h"
 
 
 const Party& MandatesSelectionPolicy::select(const Graph& g, int pId, const Agent& a) const

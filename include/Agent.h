@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vector>
-#include "Graph.h"
+using std::vector;
+#include "SelectionPolicy.h"
+#include "Party.h"
+#include "Coalition.h"
 
-class SelectionPolicy;
+class Simulation;
 
 class Agent
 {

@@ -1,4 +1,6 @@
 #include "Simulation.h"
+#include "Party.h"
+#include "SelectionPolicy.h"
 
 using std::move;
 
