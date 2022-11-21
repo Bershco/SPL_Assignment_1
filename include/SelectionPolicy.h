@@ -1,5 +1,8 @@
 #pragma once
-#include "Party.h"
+
+class Party;
+class Graph;
+class Agent;
 
 class SelectionPolicy {
 public:

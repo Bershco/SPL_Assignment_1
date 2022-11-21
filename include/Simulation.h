@@ -4,10 +4,12 @@
 
 #include "Graph.h"
 #include "Agent.h"
-#include "Party.h"
 
 using std::string;
 using std::vector;
+
+class Party;
+class SelectionPolicy;
 
 class Simulation
 {
