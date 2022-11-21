@@ -30,9 +30,9 @@ const Party &Graph::getParty(int partyId) const
 const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
     int mandates = 0, maxMandatePartyId = -1;
     int currPartyInd = 0;
+    int coalitionId = a.getCoalId();
     for (int p : mEdges[pId]) {
-        Coalition c = a.getCoalition();
-        if (p != 0 && !( (getParty(currPartyInd)).isJoined() ) && !c.checkOffers(getParty(currPartyInd)) ) {
+        if (p != 0 && !( (getParty(currPartyInd)).isJoined() ) && !(getParty(currPartyInd).receiveOfferFromId(coalitionId)) ) {
             //Make sure they are neighbors, the party isn't 'Joined' and that a's coalition didn't already offer that party this iteration.
             int checkMandates = (getParty(currPartyInd)).getMandates();
             if (checkMandates > mandates)
@@ -55,9 +55,9 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
 const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
     int maxEdgeWeight = 0;
     int retPartyId = -1;
+    int coalitionId = a.getCoalId();
     for (int i = 0; i < mEdges[pId].size(); i++) {
-        Coalition c = a.getCoalition();
-        if (mEdges[pId][i] != 0 && !( (getParty(i)).isJoined() ) && !c.checkOffers(getParty(i)) ) { 
+        if (mEdges[pId][i] != 0 && !( (getParty(i)).isJoined() ) && !(getParty(i).receiveOfferFromId(coalitionId)) ) { 
             //Make sure they are neighbors, and the party isn't 'Joined' and that a's coalition didn't already offer that party this iteration.
             if (mEdges[pId][i] > maxEdgeWeight) {
                 maxEdgeWeight = mEdges[pId][i];
