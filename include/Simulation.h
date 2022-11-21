@@ -3,8 +3,10 @@
 
 #include <vector>
 
+#include "Coalition.h"
 #include "Graph.h"
 #include "Agent.h"
+
 
 using std::string;
 using std::vector;
@@ -25,12 +27,15 @@ public:
     const Party &getParty(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
 
+    Coalition& getCoalById(int cId);
     int getNumOfAgents() const;
     const Agent& newAgent(int pId, SelectionPolicy* _sp);
+
 
 private:
     Graph mGraph;
     vector<Agent> mAgents;
+    vector<Coalition> mCoalitions;
 };
 
 #endif
