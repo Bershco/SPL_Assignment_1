@@ -69,7 +69,7 @@ Agent& Agent::operator=(const Agent& other)
 
 Agent::~Agent()
 {
-    delete(mSelectionPolicy);
+    delete mSelectionPolicy;
 }
 
 Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mSelectionPolicy(other.mSelectionPolicy)

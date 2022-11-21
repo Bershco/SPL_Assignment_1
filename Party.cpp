@@ -81,7 +81,7 @@ Party& Party::operator=(const Party& other)
 
 Party::~Party()
 {
-    delete(mJoinPolicy);
+    delete mJoinPolicy;
 }
 
 Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState)
