@@ -51,7 +51,8 @@ const Coalition& Agent::getCoalition() const
 
 Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId) 
 {
-    //TODO : SELECTION POLICY 
+    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
+    
 }
 
 Agent& Agent::operator=(const Agent& other)
@@ -59,8 +60,8 @@ Agent& Agent::operator=(const Agent& other)
     // // O: insert return statement here
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
-   // mSelectionPolicy = other.mSelectionPolicy;
-    //TODO : SELECTION POLICY 
+    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
+    
 }
 
 Agent::~Agent()

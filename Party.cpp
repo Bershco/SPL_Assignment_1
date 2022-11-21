@@ -59,18 +59,35 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
-Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
+Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
 {
-    //TODO JOIN POLICY
+    //TODO Join Policy as "Visitor Pattern"
 }
-
 Party& Party::operator=(const Party& other)
 {
     // // O: insert return statement here
     mId = other.mId;
     mName = other.mName;
     mMandates = other.mMandates;
-    //JoinPolicy
+    //JoinPolicy with new
+    mState = other.mState;
+}
+
+Party::~Party()
+{
+    delete(mJoinPolicy);
+}
+
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState)
+{}
+
+Party& Party::operator=(Party && other)
+{
+    // // O: insert return statement here
+    mId = other.mId;
+    mName = other.mName;
+    mMandates = other.mMandates;
+    mJoinPolicy = other.mJoinPolicy;
     mState = other.mState;
 }
 
