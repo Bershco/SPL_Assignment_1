@@ -36,6 +36,13 @@ public:
     void receiveOffer(Coalition& c);
     bool isRelativeMajority() const;
 
+    //Rule of 5 - because of JoinPolicy pointer
+    Party(const Party& other);              //Copy constructor
+    Party& operator=(const Party& other);   //Copy assignment operator
+    ~Party();                               //Destructor
+    Party(Party&& other);                   //Move constructor
+    Party& operator=(Party&& other);        //Move assignment operator
+
 
 private:
     int mId;
