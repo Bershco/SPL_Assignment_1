@@ -12,12 +12,7 @@ const Coalition& MandatesJoinPolicy::join(vector<Coalition&> offerers) const
 	return _c;
 }
 
-MandatesJoinPolicy* MandatesJoinPolicy::clone(MandatesJoinPolicy* policy)
-{
-	return new MandatesJoinPolicy;
-}
-
-MandatesJoinPolicy* MandatesJoinPolicy::clone(LastOfferJoinPolicy* policy)
+JoinPolicy* MandatesJoinPolicy::clone(JoinPolicy* policy)
 {
 	return new MandatesJoinPolicy;
 }
@@ -27,12 +22,8 @@ const Coalition& LastOfferJoinPolicy::join(vector<Coalition&> offerers) const
 	return offerers.at(offerers.size() - 1);
 }
 
-LastOfferJoinPolicy* LastOfferJoinPolicy::clone(MandatesJoinPolicy* policy)
-{
-	return new LastOfferJoinPolicy;
-}
 
-LastOfferJoinPolicy* LastOfferJoinPolicy::clone(LastOfferJoinPolicy* policy)
+JoinPolicy* LastOfferJoinPolicy::clone(JoinPolicy* policy)
 {
 	return new LastOfferJoinPolicy;
 }
