@@ -57,9 +57,13 @@ Coalition::Coalition(const Coalition& other) : mandates(other.mandates), parties
 Coalition& Coalition::operator=(const Coalition& other)
 {
 	mandates = other.mandates;
+	parties.clear();
 	vector<Party> parties(other.parties);
+	agents.clear();
 	vector<Agent> agents(other.agents);
 	_s = new Simulation(*other._s);
+
+	return *this;
 }
 
 Coalition::~Coalition()
@@ -67,14 +71,28 @@ Coalition::~Coalition()
 	delete _s;
 }
 
-Coalition::Coalition(Coalition&& other) : mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) {}
+Coalition::Coalition(Coalition&& other) : mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) 
+{
+	other.parties.clear();
+	other.agents.clear();
+	other._s = 0; //nullptr
+	
+}
 
 Coalition& Coalition::operator=(Coalition&& other)
 {
-	mandates = other.mandates;
-	vector<Party> parties(other.parties);
-	vector<Agent> agents(other.agents);
-	_s = other._s;
+	if (this != &other) {
+		mandates = other.mandates;
+		parties.clear();
+		vector<Party> parties(other.parties);
+		other.parties.clear();
+		agents.clear();
+		vector<Agent> agents(other.agents);
+		other.agents.clear();
+		_s = other._s;
+		
+	}
+	return *this;
 }
 
 

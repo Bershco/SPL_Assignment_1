@@ -57,11 +57,14 @@ Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPar
 
 Agent& Agent::operator=(const Agent& other)
 {
-    // // O: insert return statement here
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
+
+    if (mSelectionPolicy)
+        delete mSelectionPolicy;
     mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
-    
+
+    return *this;
 }
 
 Agent::~Agent()
@@ -70,13 +73,20 @@ Agent::~Agent()
 }
 
 Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mSelectionPolicy(other.mSelectionPolicy)
-{}
+{
+    other.mSelectionPolicy = 0; // nullptr
+}
 
 Agent& Agent::operator=(Agent && other)
 {
-    // // O: insert return statement here
-    mAgentId = other.mAgentId;
-    mPartyId = other.mPartyId;
-    mSelectionPolicy = other.mSelectionPolicy;
+    if (this != &other) {
+        mAgentId = other.mAgentId;
+        mPartyId = other.mPartyId;
+        if (mSelectionPolicy)
+            delete mSelectionPolicy;
+        mSelectionPolicy = other.mSelectionPolicy;
+        other.mSelectionPolicy = 0; //nullptr
+    }
+    return *this;
 }
 

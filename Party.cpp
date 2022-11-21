@@ -61,16 +61,22 @@ bool Party::isRelativeMajority() const
 
 Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
 {
-    //TODO Join Policy as "Visitor Pattern"
+    mJoinPolicy = mJoinPolicy->clone(other.mJoinPolicy);
 }
 Party& Party::operator=(const Party& other)
 {
-    // // O: insert return statement here
     mId = other.mId;
-    mName = other.mName;
     mMandates = other.mMandates;
-    //JoinPolicy with new
     mState = other.mState;
+
+    mName.clear();
+    mName = other.mName;
+
+    if (mJoinPolicy)
+        delete mJoinPolicy;
+    mJoinPolicy = mJoinPolicy->clone(other.mJoinPolicy);
+
+    return *this;
 }
 
 Party::~Party()
@@ -83,12 +89,21 @@ Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(othe
 
 Party& Party::operator=(Party && other)
 {
-    // // O: insert return statement here
-    mId = other.mId;
-    mName = other.mName;
-    mMandates = other.mMandates;
-    mJoinPolicy = other.mJoinPolicy;
-    mState = other.mState;
+    if (this != &other) {
+        mId = other.mId;
+        mMandates = other.mMandates;
+        mState = other.mState;
+
+        mName.clear();
+        mName = other.mName;
+        other.mName.clear();
+
+
+        if (mJoinPolicy)
+            delete mJoinPolicy;
+        mJoinPolicy = other.mJoinPolicy;
+        other.mJoinPolicy = 0; //nullptr
+    }
 }
 
 void Party::step(Simulation &s)
