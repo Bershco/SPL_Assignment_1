@@ -14,11 +14,18 @@ public:
     int getId() const;
     void step(Simulation &);
 
-    void clone(Party& p);
     bool offered(const Party& p) const;
     SelectionPolicy* getSelectionPolicy() const;
     void setCoal(const Coalition& c);
     const Coalition& getCoalition() const;
+
+    //Rule of 5 - because of SelecitonPolicy pointer
+    Agent(const Agent& other);              //Copy constructor
+    Agent& operator=(const Agent& other);   //Copy assignment operator
+    ~Agent();                               //Destructor
+    Agent(Agent&& other);                   //Move constructor
+    Agent& operator=(Agent&& other);        //Move assignment operator
+
 
 
 private:

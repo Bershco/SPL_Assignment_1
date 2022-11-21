@@ -19,19 +19,9 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this); //TODO - see what to do if no party has been selected
-    if (p.getId() != -10) {
-        offeredParties.push_back(p);
-        p.receiveOffer(coal);
-    }
-    else {
-        delete(&p);
-    }
-}
-
-void Agent::clone(Party& p)
-{
-    throw _exception();
+    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
+    offeredParties.push_back(p);
+    p.receiveOffer(coal);
 }
 
 bool Agent::offered(const Party& p) const
