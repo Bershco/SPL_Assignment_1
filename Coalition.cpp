@@ -49,5 +49,33 @@ vector<int> Coalition::getPartyIDs() const
 	return partyIDs;
 }
 
+Coalition::Coalition(const Coalition& other) : mandates(other.mandates), parties(other.parties), agents(other.agents)
+{
+	_s = new Simulation(*other._s);
+}
+
+Coalition& Coalition::operator=(const Coalition& other)
+{
+	mandates = other.mandates;
+	vector<Party> parties(other.parties);
+	vector<Agent> agents(other.agents);
+	_s = new Simulation(*other._s);
+}
+
+Coalition::~Coalition()
+{
+	delete _s;
+}
+
+Coalition::Coalition(Coalition&& other) : mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) {}
+
+Coalition& Coalition::operator=(Coalition&& other)
+{
+	mandates = other.mandates;
+	vector<Party> parties(other.parties);
+	vector<Agent> agents(other.agents);
+	_s = other._s;
+}
+
 
 
