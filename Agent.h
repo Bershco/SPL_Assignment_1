@@ -14,7 +14,6 @@ public:
     int getId() const;
     void step(Simulation &);
 
-    void clone(Party& p);
     bool offered(const Party& p) const;
     SelectionPolicy* getSelectionPolicy() const;
     void setCoal(const Coalition& c);

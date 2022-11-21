@@ -24,11 +24,6 @@ void Agent::step(Simulation &sim)
     p.receiveOffer(coal);
 }
 
-void Agent::clone(Party& p)
-{
-    throw _exception();
-}
-
 bool Agent::offered(const Party& p) const
 {
     for (auto _p : offeredParties) {
