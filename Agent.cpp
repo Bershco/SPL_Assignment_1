@@ -48,3 +48,35 @@ const Coalition& Agent::getCoalition() const
 {
     return coal;
 }
+
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId) 
+{
+    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
+    
+}
+
+Agent& Agent::operator=(const Agent& other)
+{
+    // // O: insert return statement here
+    mAgentId = other.mAgentId;
+    mPartyId = other.mPartyId;
+    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
+    
+}
+
+Agent::~Agent()
+{
+    delete(mSelectionPolicy);
+}
+
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mSelectionPolicy(other.mSelectionPolicy)
+{}
+
+Agent& Agent::operator=(Agent && other)
+{
+    // // O: insert return statement here
+    mAgentId = other.mAgentId;
+    mPartyId = other.mPartyId;
+    mSelectionPolicy = other.mSelectionPolicy;
+}
+
