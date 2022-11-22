@@ -7,12 +7,12 @@ using std::move;
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), mCoalitions()
 {
     // You can change the implementation of the constructor, but not the signature!
-    for (Agent a : mAgents) {
-        int coalSize = mCoalitions.size();
-        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a,coalSize));
+    for (int i = 0; i < abs(mAgents.size()); i++) {
+        int coalSize = abs(mCoalitions.size());
+        mCoalitions.push_back(Coalition(getParty(mAgents[i].getPartyId()),mAgents[i],coalSize));
     }
-    for (Coalition c : mCoalitions) {
-        c.checkMandates();
+    for (int i = 0; i < abs(mCoalitions.size()); i++) {
+        mCoalitions[i].checkMandates();
     }
 }
 
@@ -23,7 +23,7 @@ void Simulation::step()
         Party p = getParty(i);
         p.step(*this);
     }
-    for (int i = 0; i < mAgents.size(); i++) {
+    for (int i = 0; i < abs(mAgents.size()); i++) {
         if (mAgents[i].getCoalId() == -1) {
             fixAgent_CoalId(mAgents[i]);
         }
@@ -33,10 +33,10 @@ void Simulation::step()
 }
 
 void Simulation::fixAgent_CoalId(Agent& a) {
-    if (mCoalitions.size() == 0)
+    if (abs(mCoalitions.size()) == 0)
         initiateCoalitions();
     else {
-        for (int i = 0; i < mCoalitions.size(); i++) {
+        for (int i = 0; i < abs(mCoalitions.size()); i++) {
             if (mCoalitions[i].findAgent(a)) {
                 a.setCoalId(mCoalitions[i].getId());
                 break;
@@ -48,10 +48,9 @@ void Simulation::fixAgent_CoalId(Agent& a) {
 }
 
 void Simulation::initiateCoalitions() {
-
-    for (auto& a : mAgents) {
-        Coalition c(getParty(a.getPartyId()),a,mCoalitions.size());
-        a.setCoalId(c.getId());
+    for (int i = 0; i < abs(mAgents.size()); i++) {
+        Coalition c(getParty(mAgents[i].getPartyId()),mAgents[i],mCoalitions.size());
+        mAgents[i].setCoalId(c.getId());
         mCoalitions.push_back(c);
     }
 }
@@ -91,7 +90,7 @@ const Party &Simulation::getParty(int partyId) const
 }
 
 int Simulation::addAgent(Agent& a) {
-    int aId = mAgents.size();
+    int aId = abs(mAgents.size());
     mAgents.push_back(a);
     return aId;
 }
@@ -101,11 +100,11 @@ int Simulation::addAgent(Agent& a) {
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     vector<Coalition> allCoalitions;
-    for (int i = 0; i < mAgents.size() ;i++) {
+    for (int i = 0; i < abs(mAgents.size()) ;i++) {
         bool same = false;
         int agent_cId = mAgents[i].getCoalId();
         if (!allCoalitions.empty()) {
-            for (int j = 0; j < allCoalitions.size(); j++) {
+            for (int j = 0; j < abs(allCoalitions.size()); j++) {
                 if (agent_cId == allCoalitions[j].getId()) {
                     same = true;
                     break;
@@ -120,7 +119,7 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
     }
  
     vector<vector<int>> coalitionsByPartyID;
-    for (int p = 0; p < allCoalitions.size();p++) {
+    for (int p = 0; p < abs(allCoalitions.size());p++) {
         coalitionsByPartyID.push_back(allCoalitions[p].getPartyIDs());
     }
   
