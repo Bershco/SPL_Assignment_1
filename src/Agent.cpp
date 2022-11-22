@@ -25,7 +25,7 @@ void Agent::step(Simulation &sim)
         p.receiveOffer(sim.getCoalById(coalId));
     }
     else
-        delete &p; //TODO check if we can delete an object passed by reference, if not - change select method to retrieve pointer instead
+        delete &p;
 }
 
 
