@@ -3,12 +3,11 @@
 
 const Coalition& MandatesJoinPolicy::join(vector<Coalition> offerers) const
 {
-	Coalition _c = offerers.at(0);
+	Coalition _c = offerers[0];
 	int maxMandates = _c.getMandates();
-	for (auto c : offerers) {
-		if (c.getMandates() > maxMandates)
-			_c = c;
-	}
+	for (int i = 0; i < offerers.size(); i++)
+		if (offerers[i].getMandates() > maxMandates)
+			_c = offerers[i];
 	return *(new Coalition(_c)); //resolved
 }
 
@@ -19,7 +18,7 @@ JoinPolicy* MandatesJoinPolicy::clone()
 
 const Coalition& LastOfferJoinPolicy::join(vector<Coalition> offerers) const
 {
-	return offerers.at(offerers.size() - 1);
+	return offerers[offerers.size() - 1];
 }
 
 

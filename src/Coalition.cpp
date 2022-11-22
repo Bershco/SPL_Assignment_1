@@ -17,8 +17,9 @@ int Coalition::getId() const {
 
 void Coalition::checkMandates() {
 	mandates = 0;
-	for (auto p : parties)
-		mandates += p.getMandates();
+	for (int i = 0; i < parties.size(); i++) {
+		mandates += parties[i].getMandates();
+	}
 }
 
 void Coalition::join(Party& p)
@@ -30,7 +31,7 @@ void Coalition::join(Party& p)
 
 void Coalition::cloneAgent(int pId)
 {
-	Agent a(-1,pId,agents.at(0).getSelectionPolicy());
+	Agent a(-1,pId,agents[0].getSelectionPolicy());
 	a.setCoalId(cId);
 	a.setId(abs(agents.size()));
 	agents.push_back(a);
@@ -38,8 +39,8 @@ void Coalition::cloneAgent(int pId)
 
 bool Coalition::checkOffers(const Party& p) const
 {
-	for (auto a : agents)
-		if (a.offered(p))
+	for (int i = 0; i < agents.size(); i++)
+		if (agents[i].offered(p))
 			return true;
 	return false;
 }
@@ -60,16 +61,14 @@ bool Coalition::operator==(Coalition c)
 vector<int> Coalition::getPartyIDs() const
 {
 	vector<int> partyIDs;
-	for (auto p : parties) {
-		partyIDs.push_back(p.getId());
-	}
+	for (int i = 0; i < parties.size(); i++)
+		partyIDs.push_back(parties[i].getId());
 	return partyIDs;
 }
 
 bool Coalition::findAgent(Agent& a) {
-	for (auto _a : agents) {
-		if (a.getId() == _a.getId())
+	for (int i = 0; i < agents.size(); i++)
+		if (agents[i].getId() == a.getId())
 			return true;
-	}
 	return false;
 }

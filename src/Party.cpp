@@ -59,10 +59,9 @@ bool Party::isRelativeMajority() const
 }
 
 bool Party::receiveOfferFromId(int cId) const {
-    for (Coalition c : offerers) {
-        if (c.getId() == cId)
+    for (int i = 0; i < offerers.size(); i++)
+        if (offerers[i].getId() == cId)
             return true;
-    }
     return false;
 }
 
