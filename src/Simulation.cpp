@@ -23,23 +23,27 @@ void Simulation::step()
         Party p = getParty(i);
         p.step(*this);
     }
-    for (Agent& a : mAgents) {
-        if (a.getCoalId() == -1) 
-            fixAgent_CoalId(a);
-        a.step(*this);
+    for (int i = 0; i < mAgents.size(); i++) {
+        if (mAgents[i].getCoalId == -1) {
+            fixAgent_CoalId(mAgents[i]);
+        }
+        mAgents[i].step(*this);
     }
+
 }
 
 void Simulation::fixAgent_CoalId(Agent& a) {
     if (mCoalitions.size() == 0)
         initiateCoalitions();
     else {
-        for (auto c : mCoalitions) {
-            if (c.findAgent(a)) {
-                a.setCoalId(c.getId());
+        for (int i = 0; i < mCoalitions.size(); i++) {
+            if (mCoalitions[i].findAgent(a)) {
+                a.setCoalId(mCoalitions[i].getId());
                 break;
             }
+
         }
+       
     }
 }
 
@@ -97,27 +101,29 @@ int Simulation::addAgent(Agent& a) {
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     vector<Coalition> allCoalitions;
-    for (auto a : mAgents) {
+    for (int i = 0; i < mAgents;i++) {
         bool same = false;
-        int agent_cId = a.getCoalId();
-        if (!allCoalitions.empty())
-            for (auto c : allCoalitions) {
-                if (agent_cId == c.getId()) {
+        int agent_cId = mAgents[i].getCoalId();
+        if (!allCoalitions.empty()) {
+            for (int j = 0; j < allCoalitions.size(); j++) {
+                if (agent_cId == allCoalitions[j].getId()) {
                     same = true;
                     break;
                 }
             }
+        }
         if (same) continue;
         else {
             if (!mCoalitions.empty())
-                allCoalitions.push_back(mCoalitions.at(agent_cId));
+                allCoalitions.push_back(mCoalitions[agent_cId]);
         }
     }
+ 
     vector<vector<int>> coalitionsByPartyID;
-    for (const auto& c : allCoalitions) {
-        coalitionsByPartyID.push_back(c.getPartyIDs());
+    for (int p = 0; p < allCoalitions.size();p++) {
+        coalitionsByPartyID.push_back(allCoalitions[p].getPartyIDs());
     }
-
+  
     return coalitionsByPartyID;
 }
 
