@@ -59,7 +59,7 @@ bool Party::isRelativeMajority() const
 }
 
 bool Party::receiveOfferFromId(int cId) const {
-    for (int i = 0; i < offerers.size(); i++)
+    for (int i = 0; i < abs(offerers.size()); i++)
         if (offerers[i].getId() == cId)
             return true;
     return false;
