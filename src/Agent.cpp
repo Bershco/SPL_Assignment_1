@@ -11,6 +11,10 @@ int Agent::getId() const
     return mAgentId;
 }
 
+void Agent::setId(int i) {
+    mAgentId = i;
+}
+
 int Agent::getPartyId() const
 {
     return mPartyId;
@@ -31,8 +35,8 @@ void Agent::step(Simulation &sim)
 
 bool Agent::offered(const Party& p) const
 {
-    for (auto _p : offeredParties) {
-        if (p.getId() == _p.getId()) {
+    for (int i = 0; i < offeredParties.size(); i++) {
+        if (offeredParties[i].getId() == p.getId()) {
             return true;
         }
     }
@@ -46,7 +50,7 @@ SelectionPolicy* Agent::getSelectionPolicy() const
 
 void Agent::setCoalId(int cId)
 {
-    coalId = cId;
+    this->coalId = cId;
 }
 
 
@@ -54,7 +58,7 @@ int Agent::getCoalId() const{
     return coalId;
 }
 
-Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy->clone(other.mSelectionPolicy)), offeredParties(other.offeredParties)
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy->clone()), offeredParties(other.offeredParties)
 {
     
 }
@@ -66,7 +70,7 @@ Agent& Agent::operator=(const Agent& other)
 
     if (mSelectionPolicy)
         delete mSelectionPolicy;
-    mSelectionPolicy = mSelectionPolicy->clone(other.mSelectionPolicy);
+    mSelectionPolicy = mSelectionPolicy->clone();
 
     return *this;
 }
