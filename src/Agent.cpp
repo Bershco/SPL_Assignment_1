@@ -35,7 +35,7 @@ void Agent::step(Simulation &sim)
 
 bool Agent::offered(const Party& p) const
 {
-    for (int i = 0; i < offeredParties.size(); i++) {
+    for (int i = 0; i < abs(offeredParties.size()); i++) {
         if (offeredParties[i].getId() == p.getId()) {
             return true;
         }
