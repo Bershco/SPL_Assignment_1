@@ -18,9 +18,14 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
+    if (mAgentId == -1) initiateAgent(sim);
     Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
     offeredParties.push_back(p);
     p.receiveOffer(sim.getCoalById(coalId));
+}
+
+void Agent::initiateAgent(Simulation& sim) {
+    mAgentId = sim.addAgent(*this);
 }
 
 bool Agent::offered(const Party& p) const
