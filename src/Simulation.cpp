@@ -24,7 +24,7 @@ void Simulation::step()
         p.step(*this);
     }
     for (int i = 0; i < mAgents.size(); i++) {
-        if (mAgents[i].getCoalId == -1) {
+        if (mAgents[i].getCoalId() == -1) {
             fixAgent_CoalId(mAgents[i]);
         }
         mAgents[i].step(*this);
@@ -101,7 +101,7 @@ int Simulation::addAgent(Agent& a) {
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     vector<Coalition> allCoalitions;
-    for (int i = 0; i < mAgents;i++) {
+    for (int i = 0; i < mAgents.size() ;i++) {
         bool same = false;
         int agent_cId = mAgents[i].getCoalId();
         if (!allCoalitions.empty()) {
