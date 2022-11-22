@@ -67,7 +67,6 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
     }
     if (retPartyId == -1) {
         return *(new Party(-10,"dummy",0,0));
-        //return Party(-10, "dummy", 0, 0);
     }
     return getParty(retPartyId);
 

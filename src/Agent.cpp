@@ -18,15 +18,16 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    if (mAgentId == -1) initiateAgent(sim);
+    if (mAgentId == -1) mAgentId = sim.addAgent(*this);
     Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
-    offeredParties.push_back(p);
-    p.receiveOffer(sim.getCoalById(coalId));
+    if (p.getId() != -10) { //if p.id IS 10 - that means it's a dummy ,and should not be used.
+        offeredParties.push_back(p);
+        p.receiveOffer(sim.getCoalById(coalId));
+    }
+    else
+        delete p; //TODO check if we can delete an object passed by reference, if not - change select method to retrieve pointer instead
 }
 
-void Agent::initiateAgent(Simulation& sim) {
-    mAgentId = sim.addAgent(*this);
-}
 
 bool Agent::offered(const Party& p) const
 {

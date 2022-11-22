@@ -5,7 +5,7 @@
 using std::vector;
 #include "SelectionPolicy.h"
 #include "Party.h"
-#include "Coalition.h"
+#include "Coalition.h" //TODO make sure this is needed fr
 
 class Simulation;
 
@@ -22,7 +22,6 @@ public:
     SelectionPolicy* getSelectionPolicy() const;
     void setCoalId(int cId);
     int getCoalId() const;
-    void initiateAgent(Simulation& sim);
 
     //Rule of 5 - because of SelecitonPolicy pointer
     Agent(const Agent& other);              //Copy constructor
