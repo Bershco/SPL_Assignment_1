@@ -66,7 +66,7 @@ bool Party::receiveOfferFromId(int cId) const {
     return false;
 }
 
-Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),  mJoinPolicy(other.mJoinPolicy->clone(other.mJoinPolicy)), mState(other.mState), offerers(other.offerers), timer(other.timer)
+Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),  mJoinPolicy(other.mJoinPolicy->clone()), mState(other.mState), offerers(other.offerers), timer(other.timer)
 {
     
 }
@@ -81,14 +81,14 @@ Party& Party::operator=(const Party& other)
 
     if (mJoinPolicy)
         delete mJoinPolicy;
-    mJoinPolicy = mJoinPolicy->clone(other.mJoinPolicy);
+    mJoinPolicy = mJoinPolicy->clone();
 
     return *this;
 }
 
 Party::~Party()
 {
-    delete mJoinPolicy;
+    //delete mJoinPolicy; // could be memory leak
 }
 
 Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerers(other.offerers), timer(other.timer)
@@ -123,6 +123,7 @@ void Party::step(Simulation &s)
             Coalition bestOfferer = mJoinPolicy->join(offerers);
             setState(Joined);
             bestOfferer.join(*this);
+            delete &bestOfferer;
         }
     }
 }
