@@ -2,10 +2,9 @@
 #include "Simulation.h"
 
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) :
-    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting) 
+    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offerers(), timer(0)
 {
     // You can change the implementation of the constructor, but not the signature!
-    timer = 0;
 }
 
 State Party::getState() const
@@ -64,11 +63,12 @@ bool Party::receiveOfferFromId(int cId) const {
         if (c.getId() == cId)
             return true;
     }
+    return false;
 }
 
-Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
+Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),  mJoinPolicy(other.mJoinPolicy->clone(other.mJoinPolicy)), mState(other.mState), offerers(other.offerers), timer(other.timer)
 {
-    mJoinPolicy = mJoinPolicy->clone(other.mJoinPolicy);
+    
 }
 Party& Party::operator=(const Party& other)
 {
@@ -91,7 +91,7 @@ Party::~Party()
     delete mJoinPolicy;
 }
 
-Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState)
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerers(other.offerers), timer(other.timer)
 {}
 
 Party& Party::operator=(Party && other)
@@ -111,6 +111,7 @@ Party& Party::operator=(Party && other)
         mJoinPolicy = other.mJoinPolicy;
         other.mJoinPolicy = 0; //nullptr
     }
+    return *this;
 }
 
 void Party::step(Simulation &s)
