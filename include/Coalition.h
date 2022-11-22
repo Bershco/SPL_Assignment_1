@@ -10,7 +10,7 @@ using std::vector;
 
 class Coalition {
 public:
-	Coalition(const Party& p, const Agent& a);
+	Coalition(const Party& p, Agent& a, int coalId);
 
 	int getMandates() const;
 	void join(Party& p);
@@ -20,13 +20,7 @@ public:
 	vector<int> getPartyIDs() const;
 	int getId() const;
 	void checkMandates();
-
-	//Rule of 5 - because of Simulation pointer
-	Coalition(const Coalition& other);              //Copy constructor
-	Coalition& operator=(const Coalition& other);   //Copy assignment operator
-	~Coalition();									//Destructor
-	Coalition(Coalition&& other);                   //Move constructor
-	Coalition& operator=(Coalition&& other);        //Move assignment operator
+	bool findAgent(Agent& a);
 
 private:
 	int cId;

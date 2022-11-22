@@ -1,7 +1,8 @@
 #include "Coalition.h"
 
-Coalition::Coalition(const Party& p, const Agent& a) : cId(a.getCoalId()), mandates(p.getMandates()), parties(vector<Party>()), agents(vector<Agent>()) {
+Coalition::Coalition(const Party& p, Agent& a, int coalId) : cId(coalId), mandates(p.getMandates()), parties(vector<Party>()), agents(vector<Agent>()) {
 	parties.push_back(p);
+	a.setCoalId(coalId);
 	agents.push_back(a);
 }
 
@@ -31,6 +32,7 @@ void Coalition::cloneAgent(int pId)
 {
 	Agent a(-1,pId,agents.at(0).getSelectionPolicy());
 	a.setCoalId(cId);
+	a.setId(abs(agents.size()));
 	agents.push_back(a);
 }
 
@@ -64,44 +66,10 @@ vector<int> Coalition::getPartyIDs() const
 	return partyIDs;
 }
 
-Coalition::Coalition(const Coalition& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents)
-{}
-
-Coalition& Coalition::operator=(const Coalition& other)
-{
-	mandates = other.mandates;
-	parties.clear();
-	vector<Party> parties(other.parties);
-	agents.clear();
-	vector<Agent> agents(other.agents);
-
-	return *this;
-}
-
-Coalition::~Coalition()
-{}
-
-Coalition::Coalition(Coalition&& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents)
-{
-	other.parties.clear();
-	other.agents.clear();
-	
-}
-
-Coalition& Coalition::operator=(Coalition&& other)
-{
-	if (this != &other) {
-		mandates = other.mandates;
-		parties.clear();
-		vector<Party> parties(other.parties);
-		other.parties.clear();
-		agents.clear();
-		vector<Agent> agents(other.agents);
-		other.agents.clear();
-		
+bool Coalition::findAgent(Agent& a) {
+	for (auto _a : agents) {
+		if (a.getId() == _a.getId())
+			return true;
 	}
-	return *this;
+	return false;
 }
-
-
-
