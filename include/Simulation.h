@@ -31,6 +31,8 @@ public:
     Coalition& getCoalById(int cId);
     int getNumOfAgents() const;
     const Agent& newAgent(int pId, SelectionPolicy* _sp);
+    void fixAgent_CoalId(Agent& a);
+    void initiateCoalitions();
 
 
 private:

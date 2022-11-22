@@ -7,9 +7,9 @@ using std::move;
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), mCoalitions()
 {
     // You can change the implementation of the constructor, but not the signature!
-    vector<Coalition> mCoalitions;
     for (Agent a : mAgents) {
-        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a));
+        int coalSize = mCoalitions.size();
+        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a,coalSize));
     }
     for (Coalition c : mCoalitions) {
         c.checkMandates();
@@ -24,7 +24,31 @@ void Simulation::step()
         p.step(*this);
     }
     for (Agent& a : mAgents) {
+        if (a.getCoalId() == -1) 
+            fixAgent_CoalId(a);
         a.step(*this);
+    }
+}
+
+void Simulation::fixAgent_CoalId(Agent& a) {
+    if (mCoalitions.size() == 0)
+        initiateCoalitions();
+    else {
+        for (auto c : mCoalitions) {
+            if (c.findAgent(a)) {
+                a.setCoalId(c.getId());
+                break;
+            }
+        }
+    }
+}
+
+void Simulation::initiateCoalitions() {
+
+    for (auto& a : mAgents) {
+        Coalition c(getParty(a.getPartyId()),a,mCoalitions.size());
+        a.setCoalId(c.getId());
+        mCoalitions.push_back(c);
     }
 }
 
@@ -73,17 +97,21 @@ int Simulation::addAgent(Agent& a) {
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     vector<Coalition> allCoalitions;
-    for (const auto& a : mAgents) {
+    for (auto a : mAgents) {
         bool same = false;
         int agent_cId = a.getCoalId();
-        for (const auto& c : allCoalitions) {
-            if (agent_cId == c.getId()) {
-                same = true;
-                break;
+        if (!allCoalitions.empty())
+            for (auto c : allCoalitions) {
+                if (agent_cId == c.getId()) {
+                    same = true;
+                    break;
+                }
             }
-        }
         if (same) continue;
-        else allCoalitions.push_back(mCoalitions[agent_cId]);
+        else {
+            if (!mCoalitions.empty())
+                allCoalitions.push_back(mCoalitions.at(agent_cId));
+        }
     }
     vector<vector<int>> coalitionsByPartyID;
     for (const auto& c : allCoalitions) {
