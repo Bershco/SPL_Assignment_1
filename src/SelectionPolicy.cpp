@@ -11,7 +11,7 @@ const Party& MandatesSelectionPolicy::select(const Graph& g, int pId, const Agen
 
 SelectionPolicy* MandatesSelectionPolicy::clone(SelectionPolicy* policy)
 {
-	return new MandatesSelectionPolicy;
+	return new MandatesSelectionPolicy; //TODO check if any work is need in deleting the object
 	
 }
 
@@ -24,7 +24,7 @@ const Party& EdgeWeightSelectionPolicy::select(const Graph& g, int pId, const Ag
 SelectionPolicy* EdgeWeightSelectionPolicy::clone(SelectionPolicy* policy)
 {
 
-	return new EdgeWeightSelectionPolicy;
+	return new EdgeWeightSelectionPolicy; //TODO check if any work is need in deleting the object
 	
 }
 

@@ -14,9 +14,9 @@ Agent Parser::parseAgent(const json &jAgent, int agentId)
     SelectionPolicy *sp;
     string selectionPolicy = jAgent["selection_policy"];
     if (selectionPolicy == "M")
-        sp = new MandatesSelectionPolicy;
+        sp = new MandatesSelectionPolicy; //TODO check if any work is need in deleting the object
     else if (selectionPolicy == "E")
-        sp = new EdgeWeightSelectionPolicy;
+        sp = new EdgeWeightSelectionPolicy; //TODO check if any work is need in deleting the object
     else
         throw std::invalid_argument("Invalid selection policy");
 
@@ -30,11 +30,11 @@ Party Parser::parseParty(const json &jParty, const int id)
     string joinPolicy = jParty["join_policy"];
     if (joinPolicy == "M")
     {
-        jp = new MandatesJoinPolicy;
+        jp = new MandatesJoinPolicy; //TODO check if any work is need in deleting the object
     }
     else if (joinPolicy == "L")
     {
-        jp = new LastOfferJoinPolicy;
+        jp = new LastOfferJoinPolicy; //TODO check if any work is need in deleting the object
     }
     else
         throw std::invalid_argument("Invalid join policy");

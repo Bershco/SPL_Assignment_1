@@ -102,7 +102,7 @@ const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
 {
     Agent a(mAgents.size(), pId, _sp);
     mAgents.push_back(a);
-    return *(new Agent(a));
+    return *(new Agent(a)); //TODO check if any work is need in deleting the object
 }
 
 Coalition& Simulation::getCoalById(int cId) {

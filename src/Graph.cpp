@@ -47,7 +47,7 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
         currPartyInd++;
     }
     if (maxMandatePartyId == -1) {
-        return *(new Party(-10,"dummy",0,0));
+        return *(new Party(-10,"dummy",0,0)); //resolved
     }
     return getParty(maxMandatePartyId);
 }
@@ -66,7 +66,7 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
         }
     }
     if (retPartyId == -1) {
-        return *(new Party(-10,"dummy",0,0));
+        return *(new Party(-10,"dummy",0,0)); //resolved
     }
     return getParty(retPartyId);
 
