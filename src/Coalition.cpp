@@ -1,6 +1,6 @@
 #include "Coalition.h"
 
-Coalition::Coalition(const Party& p, const Agent& a, Simulation* s) : cId(a.getCoalId()), mandates(p.getMandates()), parties(vector<Party>()), agents(vector<Agent>()), _s(s) {
+Coalition::Coalition(const Party& p, const Agent& a) : cId(a.getCoalId()), mandates(p.getMandates()), parties(vector<Party>()), agents(vector<Agent>()) {
 	parties.push_back(p);
 	agents.push_back(a);
 }
@@ -29,7 +29,7 @@ void Coalition::join(Party& p)
 
 void Coalition::cloneAgent(int pId)
 {
-	Agent a = _s->newAgent(pId, agents.at(0).getSelectionPolicy());
+	Agent a(-1,pId,agents.at(0).getSelectionPolicy());
 	a.setCoalId(cId);
 	agents.push_back(a);
 }
@@ -52,7 +52,7 @@ bool Coalition::operator==(Coalition c)
 		if (agents[i].getId() != c.agents[i].getId())
 			return false;
 	}
-	return (mandates == c.mandates) && (_s == c._s);
+	return (mandates == c.mandates);
 }
 
 vector<int> Coalition::getPartyIDs() const
@@ -64,7 +64,7 @@ vector<int> Coalition::getPartyIDs() const
 	return partyIDs;
 }
 
-Coalition::Coalition(const Coalition& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents),_s(new Simulation(*other._s))
+Coalition::Coalition(const Coalition& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents)
 {}
 
 Coalition& Coalition::operator=(const Coalition& other)
@@ -74,21 +74,17 @@ Coalition& Coalition::operator=(const Coalition& other)
 	vector<Party> parties(other.parties);
 	agents.clear();
 	vector<Agent> agents(other.agents);
-	_s = new Simulation(*other._s);
 
 	return *this;
 }
 
 Coalition::~Coalition()
-{
-	delete _s;
-}
+{}
 
-Coalition::Coalition(Coalition&& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents), _s(other._s) 
+Coalition::Coalition(Coalition&& other) : cId(other.cId), mandates(other.mandates), parties(other.parties), agents(other.agents)
 {
 	other.parties.clear();
 	other.agents.clear();
-	other._s = 0; //nullptr
 	
 }
 
@@ -102,7 +98,6 @@ Coalition& Coalition::operator=(Coalition&& other)
 		agents.clear();
 		vector<Agent> agents(other.agents);
 		other.agents.clear();
-		_s = other._s;
 		
 	}
 	return *this;

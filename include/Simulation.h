@@ -26,6 +26,7 @@ public:
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
+    int addAgent(Agent& a);
 
     Coalition& getCoalById(int cId);
     int getNumOfAgents() const;

@@ -22,6 +22,7 @@ public:
     SelectionPolicy* getSelectionPolicy() const;
     void setCoalId(int cId);
     int getCoalId() const;
+    void initiateAgent(Simulation& sim);
 
     //Rule of 5 - because of SelecitonPolicy pointer
     Agent(const Agent& other);              //Copy constructor

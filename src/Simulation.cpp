@@ -4,12 +4,12 @@
 
 using std::move;
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), mCoalitions()
 {
     // You can change the implementation of the constructor, but not the signature!
     vector<Coalition> mCoalitions;
     for (Agent a : mAgents) {
-        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a,this));
+        mCoalitions.push_back(Coalition(getParty(a.getPartyId()),a));
     }
     for (Coalition c : mCoalitions) {
         c.checkMandates();
@@ -62,6 +62,12 @@ const Party &Simulation::getParty(int partyId) const
     return mGraph.getParty(partyId);
 }
 
+int Simulation::addAgent(Agent& a) {
+    int aId = mAgents.size();
+    mAgents.push_back(a);
+    return aId;
+}
+
 /// This method returns a "coalition" vector, where each element is a vector of party IDs in the coalition.
 /// At the simulation initialization - the result will be [[agent0.partyId], [agent1.partyId], ...]
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
@@ -96,7 +102,7 @@ const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
 {
     Agent a(mAgents.size(), pId, _sp);
     mAgents.push_back(a);
-    return a;
+    return *(new Agent(a));
 }
 
 Coalition& Simulation::getCoalById(int cId) {

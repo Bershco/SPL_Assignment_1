@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "Party.h"
-#include "Simulation.h"
 #include "Agent.h"
 
 using std::vector;
@@ -11,8 +10,7 @@ using std::vector;
 
 class Coalition {
 public:
-	Coalition(const Party& p, const Agent& a, Simulation* s);
-	Coalition();
+	Coalition(const Party& p, const Agent& a);
 
 	int getMandates() const;
 	void join(Party& p);
@@ -35,7 +33,6 @@ private:
 	int mandates;
 	vector<Party> parties;
 	vector<Agent> agents;
-	Simulation* _s;
 };
 
 #endif

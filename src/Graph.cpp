@@ -47,7 +47,7 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
         currPartyInd++;
     }
     if (maxMandatePartyId == -1) {
-        return Party(-10,"dummy",0,0);
+        return *(new Party(-10,"dummy",0,0));
     }
     return getParty(maxMandatePartyId);
 }
@@ -56,7 +56,7 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
     int maxEdgeWeight = 0;
     int retPartyId = -1;
     int coalitionId = a.getCoalId();
-    for (int i = 0; i < mEdges[pId].size(); i++) {
+    for (int i = 0; i < abs(mEdges[pId].size()); i++) {
         if (mEdges[pId][i] != 0 && !( (getParty(i)).isJoined() ) && !(getParty(i).receiveOfferFromId(coalitionId)) ) { 
             //Make sure they are neighbors, and the party isn't 'Joined' and that a's coalition didn't already offer that party this iteration.
             if (mEdges[pId][i] > maxEdgeWeight) {
@@ -66,7 +66,8 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
         }
     }
     if (retPartyId == -1) {
-        return Party(-10, "dummy", 0, 0);
+        return *(new Party(-10,"dummy",0,0));
+        //return Party(-10, "dummy", 0, 0);
     }
     return getParty(retPartyId);
 
