@@ -8,7 +8,7 @@ class Agent;
 class SelectionPolicy {
 public:
 	virtual const Party& select(const Graph& g, int pId, const Agent& a) const = 0;
-	virtual SelectionPolicy* clone(SelectionPolicy* policy);
+	virtual SelectionPolicy* clone();
 	virtual ~SelectionPolicy() = default;
 	
 };
@@ -16,13 +16,13 @@ public:
 class MandatesSelectionPolicy: public SelectionPolicy{ 
 public:
 	const Party& select(const Graph& g, int pId, const Agent& a) const;
-	SelectionPolicy* clone(SelectionPolicy* policy);
+	SelectionPolicy* clone();
 };
 
 class EdgeWeightSelectionPolicy: public SelectionPolicy{
 public:
 	const Party& select(const Graph& g, int pId, const Agent& a) const;
-	SelectionPolicy* clone(SelectionPolicy* policy);
+	SelectionPolicy* clone();
 };
 
 #endif

@@ -9,10 +9,10 @@ const Coalition& MandatesJoinPolicy::join(vector<Coalition> offerers) const
 		if (c.getMandates() > maxMandates)
 			_c = c;
 	}
-	return *(new Coalition(_c)); //TODO check if any work is need in deleting the object
+	return *(new Coalition(_c)); //resolved
 }
 
-JoinPolicy* MandatesJoinPolicy::clone(JoinPolicy* policy)
+JoinPolicy* MandatesJoinPolicy::clone()
 {
 	return new MandatesJoinPolicy; //TODO check if any work is need in deleting the object
 }
@@ -23,12 +23,12 @@ const Coalition& LastOfferJoinPolicy::join(vector<Coalition> offerers) const
 }
 
 
-JoinPolicy* LastOfferJoinPolicy::clone(JoinPolicy* policy)
+JoinPolicy* LastOfferJoinPolicy::clone()
 {
 	return new LastOfferJoinPolicy; //TODO check if any work is need in deleting the object
 }
 
-JoinPolicy* JoinPolicy::clone(JoinPolicy* policy)
+JoinPolicy* JoinPolicy::clone()
 {
-	return policy->clone(this);
+	return this->clone();
 }

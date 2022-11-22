@@ -9,20 +9,20 @@ class Coalition;
 class JoinPolicy {
 public:
 	virtual const Coalition& join(vector<Coalition>) const = 0;
-	virtual JoinPolicy* clone(JoinPolicy* policy);
+	virtual JoinPolicy* clone();
 	virtual ~JoinPolicy() = default;
 };
 
 class MandatesJoinPolicy : public JoinPolicy {
 public:
 	const Coalition& join(vector<Coalition>) const;
-	JoinPolicy* clone(JoinPolicy* policy);
+	JoinPolicy* clone();
 };
 
 class LastOfferJoinPolicy : public JoinPolicy {
 public:
 	const Coalition& join(vector<Coalition>) const;
-	JoinPolicy* clone(JoinPolicy* policy);
+	JoinPolicy* clone();
 };
 
 #endif
