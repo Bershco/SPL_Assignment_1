@@ -28,11 +28,12 @@ public:
     const vector<vector<int>> getPartiesByCoalitions() const;
     int addAgent(Agent& a);
 
-    Coalition& getCoalById(int cId);
+    Coalition* getCoalById(int cId);
     int getNumOfAgents() const;
     const Agent& newAgent(int pId, SelectionPolicy* _sp);
     void fixAgent_CoalId(Agent& a);
     void initiateCoalitions();
+    Graph& getGraph2();
 
 
 private:

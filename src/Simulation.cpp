@@ -20,8 +20,8 @@ void Simulation::step()
 {
     int numOfParties = mGraph.getNumVertices();
     for (int i = 0; i < numOfParties; i++) {
-        Party p = getParty(i);
-        p.step(*this);
+        Party* p = mGraph.getParty2(i);
+        p->step(*this);
     }
     for (int i = 0; i < abs(mAgents.size()); i++) {
         if (mAgents[i].getCoalId() == -1) {
@@ -76,6 +76,10 @@ bool Simulation::shouldTerminate() const
 
 const Graph &Simulation::getGraph() const
 {
+    return mGraph;
+}
+
+Graph& Simulation::getGraph2() {
     return mGraph;
 }
 
@@ -138,6 +142,6 @@ const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
     return *(new Agent(a)); //TODO check if any work is need in deleting the object
 }
 
-Coalition& Simulation::getCoalById(int cId) {
-    return mCoalitions[cId];
+Coalition* Simulation::getCoalById(int cId) {
+    return &(mCoalitions[cId]);
 }
