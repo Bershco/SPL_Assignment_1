@@ -86,10 +86,7 @@ Party& Party::operator=(const Party& other)
     return *this;
 }
 
-Party::~Party()
-{
-    //delete mJoinPolicy; // could be memory leak
-}
+
 
 Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerers(other.offerers), timer(other.timer)
 {}
@@ -127,3 +124,13 @@ void Party::step(Simulation &s)
         }
     }
 }
+
+JoinPolicy* Party::getJoinPolicy(){
+    return mJoinPolicy;
+}
+
+Party::~Party()
+{
+    delete  mJoinPolicy; // could be memory leak //is a memory leak
+}
+

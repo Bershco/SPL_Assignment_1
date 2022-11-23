@@ -23,6 +23,7 @@ public:
     SelectionPolicy* getSelectionPolicy() const;
     void setCoalId(int cId);
     int getCoalId() const;
+    SelectionPolicy* getSelectionPolicy2();
 
     //Rule of 5 - because of SelecitonPolicy pointer
     Agent(const Agent& other);              //Copy constructor

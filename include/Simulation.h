@@ -18,7 +18,6 @@ class Simulation
 {
 public:
     Simulation(Graph g, vector<Agent> agents);
-
     void step();
     bool shouldTerminate() const;
 
@@ -35,7 +34,7 @@ public:
     void initiateCoalitions();
     Graph& getGraph2();
     int getNextAgentId();
-
+    void helpToDelete();
 
 private:
     Graph mGraph;
