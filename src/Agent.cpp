@@ -23,20 +23,27 @@ int Agent::getPartyId() const
 void Agent::step(Simulation &sim)
 {
     if (mAgentId == -1) mAgentId = sim.addAgent(*this);
-    Party p = mSelectionPolicy->select(sim.getGraph(), mPartyId, *this);
-    if (p.getId() != -10) { //if p.id IS 10 - that means it's a dummy ,and should not be used.
-        offeredParties.push_back(p);
-        p.receiveOffer(sim.getCoalById(coalId));
+    Party* p = mSelectionPolicy->select(sim.getGraph2(), mPartyId, *this);
+    if (p) {
+        bool add = true;
+        for (int i = 0; i < abs(offeredParties.size()); i++) {
+            if (offeredParties[i]->getId() == p->getId()) {
+                add = false;
+                break;
+            }
+        }
+        if (add) {
+            offeredParties.push_back(p);
+            p->receiveOffer(sim.getCoalById(coalId));
+        }
     }
-    else
-        delete &p;
 }
 
 
 bool Agent::offered(const Party& p) const
 {
     for (int i = 0; i < abs(offeredParties.size()); i++) {
-        if (offeredParties[i].getId() == p.getId()) {
+        if (offeredParties[i]->getId() == p.getId()) {
             return true;
         }
     }
@@ -77,7 +84,7 @@ Agent& Agent::operator=(const Agent& other)
 
 Agent::~Agent()
 {
-    delete mSelectionPolicy;
+    //delete mSelectionPolicy; //TODO check if this needs to come back
 }
 
 Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy), offeredParties(other.offeredParties)
