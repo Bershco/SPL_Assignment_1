@@ -22,18 +22,18 @@ void Coalition::checkMandates() {
 	}
 }
 
-Agent* Coalition::join(Party& p)
+Agent* Coalition::join(Party& p, int aId)
 {
 	parties.push_back(p);
 	mandates += p.getMandates();
-	return cloneAgent(p.getId());
+	return cloneAgent(p.getId(), aId);
 }
 
-Agent* Coalition::cloneAgent(int pId)
+Agent* Coalition::cloneAgent(int pId, int aId)
 {
 	Agent* a = new Agent(-1,pId,agents[0].getSelectionPolicy());
 	a->setCoalId(cId);
-	a->setId(abs(agents.size()));
+	a->setId(aId);
 	agents.push_back(*a);
 	return a;
 }

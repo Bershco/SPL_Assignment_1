@@ -13,8 +13,8 @@ public:
 	Coalition(const Party& p, Agent& a, int coalId);
 
 	int getMandates() const;
-	Agent* join(Party& p);
-	Agent* cloneAgent(int pId);
+	Agent* join(Party& p, int aId);
+	Agent* cloneAgent(int pId, int aId);
 	bool checkOffers(const Party& p) const;
 	bool operator==(Coalition c);
 	vector<int> getPartyIDs() const;
