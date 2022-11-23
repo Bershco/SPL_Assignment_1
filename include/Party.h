@@ -34,7 +34,7 @@ public:
     int getTimer() const;
     bool isJoined() const;
     bool isCollectingOffers() const;
-    void receiveOffer(Coalition& c);
+    void receiveOffer(Coalition* c);
     bool isRelativeMajority() const;
     bool receiveOfferFromId(int cId) const;
 
@@ -53,7 +53,7 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
 
-    vector<Coalition> offerers;
+    vector<Coalition*> offerers;
     int timer;
 };
 

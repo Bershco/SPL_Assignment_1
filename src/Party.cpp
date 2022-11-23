@@ -47,9 +47,10 @@ bool Party::isCollectingOffers() const
     return mState == CollectingOffers;
 }
 
-void Party::receiveOffer(Coalition& c)
+void Party::receiveOffer(Coalition* c)
 {
-    if (mState == Waiting) setState(CollectingOffers);
+    if (mState == Waiting) 
+        setState(CollectingOffers);
     offerers.push_back(c);
 }
 
@@ -60,7 +61,7 @@ bool Party::isRelativeMajority() const
 
 bool Party::receiveOfferFromId(int cId) const {
     for (int i = 0; i < abs(offerers.size()); i++)
-        if (offerers[i].getId() == cId)
+        if (offerers[i]->getId() == cId)
             return true;
     return false;
 }
@@ -119,10 +120,10 @@ void Party::step(Simulation &s)
     if (isCollectingOffers()) {
         timer++;
         if (timer >= 3) {
-            Coalition bestOfferer = mJoinPolicy->join(offerers);
             setState(Joined);
-            bestOfferer.join(*this);
-            delete &bestOfferer;
+            Agent* a = mJoinPolicy->join(offerers,*this);
+            a->setId(s.addAgent(*a));
+            //delete &bestOfferer;
         }
     }
 }
