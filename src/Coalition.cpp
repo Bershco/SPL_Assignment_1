@@ -22,19 +22,20 @@ void Coalition::checkMandates() {
 	}
 }
 
-void Coalition::join(Party& p)
+Agent* Coalition::join(Party& p)
 {
 	parties.push_back(p);
 	mandates += p.getMandates();
-	cloneAgent(p.getId());
+	return cloneAgent(p.getId());
 }
 
-void Coalition::cloneAgent(int pId)
+Agent* Coalition::cloneAgent(int pId)
 {
-	Agent a(-1,pId,agents[0].getSelectionPolicy());
-	a.setCoalId(cId);
-	a.setId(abs(agents.size()));
-	agents.push_back(a);
+	Agent* a = new Agent(-1,pId,agents[0].getSelectionPolicy());
+	a->setCoalId(cId);
+	a->setId(abs(agents.size()));
+	agents.push_back(*a);
+	return a;
 }
 
 bool Coalition::checkOffers(const Party& p) const
