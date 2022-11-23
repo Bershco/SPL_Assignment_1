@@ -17,12 +17,14 @@ class MandatesSelectionPolicy: public SelectionPolicy{
 public:
 	Party* select(Graph& g, int pId, const Agent& a);
 	SelectionPolicy* clone();
+	
 };
 
 class EdgeWeightSelectionPolicy: public SelectionPolicy{
 public:
 	Party* select(Graph& g, int pId, const Agent& a);
 	SelectionPolicy* clone();
+	
 };
 
 #endif

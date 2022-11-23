@@ -19,12 +19,14 @@ class MandatesJoinPolicy : public JoinPolicy {
 public:
 	Agent* join(vector<Coalition*> offerers, Party& p);
 	JoinPolicy* clone();
+	
 };
 
 class LastOfferJoinPolicy : public JoinPolicy {
 public:
 	Agent* join(vector<Coalition*> offerers, Party& p);
 	JoinPolicy* clone();
+	
 };
 
 #endif

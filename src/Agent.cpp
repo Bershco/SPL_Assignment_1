@@ -54,7 +54,10 @@ SelectionPolicy* Agent::getSelectionPolicy() const
 {
     return mSelectionPolicy;
 }
-
+SelectionPolicy* Agent::getSelectionPolicy2() 
+{
+    return mSelectionPolicy;
+}
 void Agent::setCoalId(int cId)
 {
     this->coalId = cId;
@@ -75,21 +78,17 @@ Agent& Agent::operator=(const Agent& other)
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
 
-    if (mSelectionPolicy)
-        delete mSelectionPolicy;
+    ///if (mSelectionPolicy)
+     delete mSelectionPolicy;
     mSelectionPolicy = mSelectionPolicy->clone();
 
     return *this;
 }
 
-Agent::~Agent()
-{
-    //delete mSelectionPolicy; //TODO check if this needs to come back
-}
 
 Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy), offeredParties(other.offeredParties)
 {
-    other.mSelectionPolicy = 0; // nullptr
+    //other.mSelectionPolicy = 0; // nullptr
 }
 
 Agent& Agent::operator=(Agent && other)
@@ -97,11 +96,15 @@ Agent& Agent::operator=(Agent && other)
     if (this != &other) {
         mAgentId = other.mAgentId;
         mPartyId = other.mPartyId;
-        if (mSelectionPolicy)
+        //if (mSelectionPolicy)
             delete mSelectionPolicy;
         mSelectionPolicy = other.mSelectionPolicy;
-        other.mSelectionPolicy = 0; //nullptr
+        //other.mSelectionPolicy = 0; //nullptr
     }
     return *this;
+}
+Agent::~Agent()
+{
+    //delete  mSelectionPolicy; //TODO check if this needs to come back
 }
 
