@@ -2,6 +2,7 @@
     "files.associations": {
         "vector": "cpp",
         "*.tcc": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "new": "cpp"
     }
 }

@@ -86,10 +86,7 @@ Party& Party::operator=(const Party& other)
     return *this;
 }
 
-Party::~Party()
-{
-    //delete mJoinPolicy; // could be memory leak
-}
+
 
 Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerers(other.offerers), timer(other.timer)
 {}
@@ -123,7 +120,17 @@ void Party::step(Simulation &s)
             setState(Joined);
             Agent* a = mJoinPolicy->join(offerers,*this);
             a->setId(s.addAgent(*a));
-            //delete &bestOfferer;
+           // delete &bestOfferer;
         }
     }
 }
+
+JoinPolicy* Party::getJoinPolicy(){
+    return mJoinPolicy;
+}
+
+Party::~Party()
+{
+    delete  mJoinPolicy; // could be memory leak //is a memory leak
+}
+

@@ -29,6 +29,7 @@ public:
     void step(Simulation &s);
     const string &getName() const;
     int getId() const;
+    
 
 
     int getTimer() const;
@@ -37,6 +38,7 @@ public:
     void receiveOffer(Coalition* c);
     bool isRelativeMajority() const;
     bool receiveOfferFromId(int cId) const;
+    JoinPolicy* getJoinPolicy();
 
     //Rule of 5 - because of JoinPolicy pointer
     Party(const Party& other);              //Copy constructor
