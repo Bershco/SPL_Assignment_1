@@ -121,8 +121,8 @@ void Party::step(Simulation &s)
         timer++;
         if (timer >= 3) {
             setState(Joined);
-            Agent* a = mJoinPolicy->join(offerers,*this);
-            a->setId(s.addAgent(*a));
+            Agent* a = mJoinPolicy->join(offerers, *this, s.getNextAgentId());
+            s.addAgent(*a);
             //delete &bestOfferer;
         }
     }
