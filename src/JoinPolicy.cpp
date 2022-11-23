@@ -3,7 +3,7 @@
 #include "Party.h"
 #include "Agent.h"
 
-Agent* MandatesJoinPolicy::join(vector<Coalition*> offerers, Party& p)
+Agent* MandatesJoinPolicy::join(vector<Coalition*> offerers, Party& p,int aId)
 {
 	Coalition* _c = offerers[0];
 	int maxMandates = _c->getMandates();
@@ -13,7 +13,7 @@ Agent* MandatesJoinPolicy::join(vector<Coalition*> offerers, Party& p)
 			_c = offerers[i];
 			saveInd = i;
 		}
-	return offerers[saveInd]->join(p);
+	return offerers[saveInd]->join(p, aId);
 }
 
 JoinPolicy* MandatesJoinPolicy::clone()
@@ -21,9 +21,9 @@ JoinPolicy* MandatesJoinPolicy::clone()
 	return new MandatesJoinPolicy; //TODO check if any work is need in deleting the object
 }
 
-Agent* LastOfferJoinPolicy::join(vector<Coalition*> offerers, Party& p)
+Agent* LastOfferJoinPolicy::join(vector<Coalition*> offerers, Party& p, int aId)
 {
-	return offerers[offerers.size()-1]->join(p);
+	return offerers[offerers.size()-1]->join(p, aId);
 }
 
 
