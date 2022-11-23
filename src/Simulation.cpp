@@ -57,21 +57,16 @@ void Simulation::initiateCoalitions() {
 
 bool Simulation::shouldTerminate() const
 {
-    bool relativeMajority = false, noMoreOptions = false;
     int numOfParties = mGraph.getNumVertices();
     int numOfJoinedParties = 0;
-    for (int i = 0; i < numOfParties; i++) {
-        Party p = getParty(i);
-        if (p.isRelativeMajority()) {
-            relativeMajority = true;
-            break;
-        }
-        if (p.getState() == Joined)
-            numOfJoinedParties++;
+    for (int i = 0; i < abs(mCoalitions.size()); i++) {
+        if (mCoalitions[i].getMandates() > 60)
+            return true;
     }
-    if (numOfParties == numOfJoinedParties)
-        noMoreOptions = true;
-    return relativeMajority || noMoreOptions;
+    for (int i = 0; i < numOfParties; i++) {
+        if (getParty(i).getState() == Joined) numOfJoinedParties++;
+    }
+    return numOfJoinedParties == numOfParties;
 }
 
 const Graph &Simulation::getGraph() const
@@ -144,4 +139,8 @@ const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
 
 Coalition* Simulation::getCoalById(int cId) {
     return &(mCoalitions[cId]);
+}
+
+int Simulation::getNextAgentId() {
+    return mAgents.size();
 }

@@ -34,6 +34,7 @@ public:
     void fixAgent_CoalId(Agent& a);
     void initiateCoalitions();
     Graph& getGraph2();
+    int getNextAgentId();
 
 
 private:
