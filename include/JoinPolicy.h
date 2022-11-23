@@ -5,23 +5,25 @@
 using std::vector;
 
 class Coalition;
+class Party;
+class Agent;
 
 class JoinPolicy {
 public:
-	virtual const Coalition& join(vector<Coalition>) const = 0;
+	virtual Agent* join(vector<Coalition*> offerers, Party& p) = 0;
 	virtual JoinPolicy* clone();
 	virtual ~JoinPolicy() = default;
 };
 
 class MandatesJoinPolicy : public JoinPolicy {
 public:
-	const Coalition& join(vector<Coalition>) const;
+	Agent* join(vector<Coalition*> offerers, Party& p);
 	JoinPolicy* clone();
 };
 
 class LastOfferJoinPolicy : public JoinPolicy {
 public:
-	const Coalition& join(vector<Coalition>) const;
+	Agent* join(vector<Coalition*> offerers, Party& p);
 	JoinPolicy* clone();
 };
 
