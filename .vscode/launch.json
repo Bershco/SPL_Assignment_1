@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/cRace",
-            "args": ["tests/01.json"],
+            "args": ["tests/02.json"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
