@@ -27,7 +27,7 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
-const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
+Party* Graph::selectPartyByMandates(int pId, const Agent& a) {
     int mandates = 0, maxMandatePartyId = -1;
     int currPartyInd = 0;
     int coalitionId = a.getCoalId();
@@ -47,12 +47,12 @@ const Party& Graph::selectPartyByMandates(int pId, const Agent& a) const {
         currPartyInd++;
     }
     if (maxMandatePartyId == -1) {
-        return *(new Party(-10,"dummy",0,0)); //resolved
+        return 0; //resolved
     }
-    return getParty(maxMandatePartyId);
+    return getParty2(maxMandatePartyId);
 }
 
-const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
+Party* Graph::selectPartyByEdgeWeight(int pId, const Agent& a) {
     int maxEdgeWeight = 0;
     int retPartyId = -1;
     int coalitionId = a.getCoalId();
@@ -66,8 +66,12 @@ const Party& Graph::selectPartyByEdgeWeight(int pId, const Agent& a) const {
         }
     }
     if (retPartyId == -1) {
-        return *(new Party(-10,"dummy",0,0)); //resolved
+        return 0; //resolved
     }
-    return getParty(retPartyId);
+    return getParty2(retPartyId);
 
+}
+
+Party* Graph::getParty2(int id) {
+    return &(mVertices.at(id));
 }
