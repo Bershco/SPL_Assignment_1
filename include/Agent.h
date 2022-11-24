@@ -4,9 +4,9 @@
 #include <vector>
 using std::vector;
 #include "SelectionPolicy.h"
-#include "Party.h"
-#include "Coalition.h" //TODO make sure this is needed fr
 
+
+class Party;
 class Simulation;
 
 class Agent

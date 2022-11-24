@@ -2,11 +2,12 @@
 #define COALITION
 
 #include <vector>
-#include "Party.h"
-#include "Agent.h"
+
+
 
 using std::vector;
-
+class Agent;
+class Party;
 
 class Coalition {
 public:

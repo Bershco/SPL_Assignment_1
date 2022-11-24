@@ -1,6 +1,6 @@
 #include "Agent.h"
 #include "Simulation.h"
-
+#include "Party.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) :
     mAgentId(agentId), mPartyId(partyId), coalId(-1), mSelectionPolicy(selectionPolicy), offeredPartiesIds()
@@ -78,8 +78,8 @@ Agent& Agent::operator=(const Agent& other)
 {
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
-
-    ///if (mSelectionPolicy)
+    //TODO check if coalID is missing
+    if (mSelectionPolicy)
      delete mSelectionPolicy;
     mSelectionPolicy = mSelectionPolicy->clone();
 
@@ -107,6 +107,6 @@ Agent& Agent::operator=(Agent && other)
 Agent::~Agent()
 {
     if (mSelectionPolicy)
-        delete  mSelectionPolicy; //TODO check if this needs to come back
+        delete  mSelectionPolicy; 
 }
 

@@ -1,4 +1,6 @@
 #include "Coalition.h"
+#include "Agent.h"
+#include "Party.h"
 
 Coalition::Coalition(const Party& p, Agent& a, int coalId) : cId(coalId), mandates(p.getMandates()), partyIds(), agentIds() {
 	partyIds.push_back(p.getId());

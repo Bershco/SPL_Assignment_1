@@ -3,13 +3,15 @@
 
 #include <string>
 #include <vector>
-#include "Coalition.h"
+
 #include "JoinPolicy.h"
+
 
 using std::vector;
 using std::string;
 
 class Simulation;
+class Coalition;
 
 enum State
 {
