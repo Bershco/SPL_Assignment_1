@@ -138,6 +138,6 @@ JoinPolicy* Party::getJoinPolicy(){
 Party::~Party()
 {
     if (mJoinPolicy)
-        delete  mJoinPolicy; // could be memory leak //is a memory leak
+        delete  mJoinPolicy; 
 }
 
