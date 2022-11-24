@@ -33,15 +33,12 @@ public:
     int getId() const;
     
 
-
-    int getTimer() const;
     bool isJoined() const;
     bool isCollectingOffers() const;
     void receiveOffer(Coalition& c);
     bool isRelativeMajority() const;
     bool receiveOfferFromId(int cId) const;
-    JoinPolicy* getJoinPolicy();
-    bool isNotDummy() const;
+
 
     //Rule of 5 - because of JoinPolicy pointer
     Party(const Party& other);              //Copy constructor

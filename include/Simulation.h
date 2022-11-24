@@ -8,7 +8,7 @@
 #include "Agent.h"
 
 
-using std::string;
+//using std::string; //TODO GO OVER WITH ROEE
 using std::vector;
 
 class Party;
@@ -28,7 +28,6 @@ public:
     int addAgent(Coalition& a, int pId);
 
     Coalition& getCoalById(int cId);
-    int getNumOfAgents() const;
     void fixAgent_CoalId(Agent& a);
     void initiateCoalitions();
     Graph& getGraph2();

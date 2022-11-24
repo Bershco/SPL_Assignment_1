@@ -125,12 +125,6 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
     return coalitionsByPartyID;
 }
 
-int Simulation::getNumOfAgents() const
-{
-    return mAgents.size();
-}
-
-
 
 Coalition& Simulation::getCoalById(int cId) {
     return mCoalitions[cId];

@@ -16,11 +16,8 @@ public:
 
     int getPartyId() const;
     int getId() const;
-    void setId(int i);
     void step(Simulation &);
-
-    bool offered(const Party& p) const;
-    SelectionPolicy* getSelectionPolicy() const;
+    
     void setCoalId(int cId);
     int getCoalId() const;
     SelectionPolicy* getSelectionPolicy2();

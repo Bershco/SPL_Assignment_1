@@ -34,10 +34,7 @@ int Party::getId() const
     return mId;
 }
 
-int Party::getTimer() const
-{
-    return timer;
-}
+
 
 bool Party::isJoined() const
 {
@@ -61,9 +58,7 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
-bool Party::isNotDummy() const {
-    return mId != -10;
-}
+
 
 bool Party::receiveOfferFromId(int cId) const {
     for (int i = 0; i < abs(offerersIds.size()); i++)
@@ -131,9 +126,7 @@ void Party::step(Simulation &s)
     }
 }
 
-JoinPolicy* Party::getJoinPolicy(){
-    return mJoinPolicy;
-}
+
 
 Party::~Party()
 {
