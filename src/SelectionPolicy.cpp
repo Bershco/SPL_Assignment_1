@@ -4,7 +4,7 @@
 #include "Graph.h"
 
 
-Party* MandatesSelectionPolicy::select(Graph& g, int pId, const Agent& a)
+Party& MandatesSelectionPolicy::select(Graph& g, int pId, const Agent& a)
 {
 	return g.selectPartyByMandates(pId, a);
 }
@@ -15,7 +15,7 @@ SelectionPolicy* MandatesSelectionPolicy::clone()
 	
 }
 
-Party* EdgeWeightSelectionPolicy::select(Graph& g, int pId, const Agent& a)
+Party& EdgeWeightSelectionPolicy::select(Graph& g, int pId, const Agent& a)
 {
 	return g.selectPartyByEdgeWeight(pId, a);
 }

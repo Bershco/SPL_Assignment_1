@@ -11,35 +11,35 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
         int coalSize = abs(mCoalitions.size());
         mCoalitions.push_back(Coalition(getParty(mAgents[i].getPartyId()),mAgents[i],coalSize));
     }
-    for (int i = 0; i < abs(mCoalitions.size()); i++) {
-        mCoalitions[i].checkMandates();
-    }
+    // for (int i = 0; i < abs(mCoalitions.size()); i++) {
+    //     mCoalitions[i].checkMandates();
+    // }
 }
 
-void Simulation :: helpToDelete(){
-    for(int i = 0 ; i<abs(mAgents.size());i++){
-        delete(mAgents[i].getSelectionPolicy2());
-    }
-    int numOfParties = mGraph.getNumVertices();
-    for (int i = 0; i < numOfParties; i++){
-        delete((*mGraph.getParty2(i)).getJoinPolicy());
-    }
+// void Simulation::helpToDelete(){
+//     for(int i = 0 ; i<abs(mAgents.size());i++){
+//         delete(mAgents[i].getSelectionPolicy2());
+//     }
+//     int numOfParties = mGraph.getNumVertices();
+//     for (int i = 0; i < numOfParties; i++){
+//         delete((mGraph.getParty2(i)).getJoinPolicy());
+//     }
     
-}
+// }
 void Simulation::step()
 {
     int numOfParties = mGraph.getNumVertices();
     for (int i = 0; i < numOfParties; i++) {
-        Party* p = mGraph.getParty2(i);
-        p->step(*this);
+        Party& p = mGraph.getParty2(i);
+        p.step(*this);
     }
     for (int i = 0; i < abs(mAgents.size()); i++) {
         if (mAgents[i].getCoalId() == -1) {
             fixAgent_CoalId(mAgents[i]);
         }
-        mAgents[i].step(*this);
+        mAgents[i].
+        step(*this);
     }
-
 }
 
 void Simulation::fixAgent_CoalId(Agent& a) {
@@ -99,9 +99,9 @@ const Party &Simulation::getParty(int partyId) const
     return mGraph.getParty(partyId);
 }
 
-int Simulation::addAgent(Agent& a) {
+int Simulation::addAgent(Coalition& c, int pId) {
     int aId = abs(mAgents.size());
-    mAgents.push_back(a);
+    mAgents.push_back(Agent(aId,pId,mAgents[c.getRepresentativeId()].getSelectionPolicy2()->clone()));
     return aId;
 }
 
@@ -141,16 +141,16 @@ int Simulation::getNumOfAgents() const
     return mAgents.size();
 }
 
-const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
-{
+// const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
+// {
     
-    Agent a(abs(mAgents.size()), pId, _sp);
-    mAgents.push_back(a);
-    return *(new Agent(a)); //TODO check if any work is need in deleting the object
-}
+//     Agent a(abs(mAgents.size()), pId, _sp);
+//     mAgents.push_back(a);
+//     return *(new Agent(a)); //TODO check if any work is need in deleting the object
+// }
 
-Coalition* Simulation::getCoalById(int cId) {
-    return &(mCoalitions[cId]);
+Coalition& Simulation::getCoalById(int cId) {
+    return mCoalitions[cId];
 }
 
 int Simulation::getNextAgentId() {

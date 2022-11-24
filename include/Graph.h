@@ -17,9 +17,9 @@ public:
     int getEdgeWeight(int v1, int v2) const;
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
-    Party* selectPartyByMandates(int pId, const Agent& a);
-    Party* selectPartyByEdgeWeight(int pId, const Agent& a);
-    Party* getParty2(int id);
+    Party& selectPartyByMandates(int pId, const Agent& a);
+    Party& selectPartyByEdgeWeight(int pId, const Agent& a);
+    Party& getParty2(int id);
 private:
     vector<Party> mVertices;
     vector<vector<int>> mEdges;

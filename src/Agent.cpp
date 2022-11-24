@@ -3,7 +3,7 @@
 
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) :
-    mAgentId(agentId), mPartyId(partyId), coalId(-1), mSelectionPolicy(selectionPolicy), offeredParties()
+    mAgentId(agentId), mPartyId(partyId), coalId(-1), mSelectionPolicy(selectionPolicy), offeredPartiesIds()
 {}
 
 int Agent::getId() const
@@ -22,19 +22,18 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    if (mAgentId == -1) mAgentId = sim.addAgent(*this);
-    Party* p = mSelectionPolicy->select(sim.getGraph2(), mPartyId, *this);
-    if (p) {
+    Party& p = mSelectionPolicy->select(sim.getGraph2(), mPartyId, *this);
+    if (p.getId() != mPartyId) {
         bool add = true;
-        for (int i = 0; i < abs(offeredParties.size()); i++) {
-            if (offeredParties[i]->getId() == p->getId()) {
+        for (int i = 0; i < abs(offeredPartiesIds.size()); i++) {
+            if (offeredPartiesIds[i] == p.getId()) {
                 add = false;
                 break;
             }
         }
         if (add) {
-            offeredParties.push_back(p);
-            p->receiveOffer(sim.getCoalById(coalId));
+            offeredPartiesIds.push_back(p.getId());
+            p.receiveOffer(sim.getCoalById(coalId));
         }
     }
 }
@@ -42,8 +41,8 @@ void Agent::step(Simulation &sim)
 
 bool Agent::offered(const Party& p) const
 {
-    for (int i = 0; i < abs(offeredParties.size()); i++) {
-        if (offeredParties[i]->getId() == p.getId()) {
+    for (int i = 0; i < abs(offeredPartiesIds.size()); i++) {
+        if (offeredPartiesIds[i] == p.getId()) {
             return true;
         }
     }
@@ -68,10 +67,12 @@ int Agent::getCoalId() const{
     return coalId;
 }
 
-Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy->clone()), offeredParties(other.offeredParties)
-{
-    
-}
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), 
+mPartyId(other.mPartyId), 
+coalId(other.coalId), 
+mSelectionPolicy(other.mSelectionPolicy->clone()), 
+offeredPartiesIds(other.offeredPartiesIds)
+{}
 
 Agent& Agent::operator=(const Agent& other)
 {
@@ -86,9 +87,9 @@ Agent& Agent::operator=(const Agent& other)
 }
 
 
-Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy), offeredParties(other.offeredParties)
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), coalId(other.coalId), mSelectionPolicy(other.mSelectionPolicy), offeredPartiesIds(other.offeredPartiesIds)
 {
-    //other.mSelectionPolicy = 0; // nullptr
+    other.mSelectionPolicy = 0; // nullptr
 }
 
 Agent& Agent::operator=(Agent && other)
@@ -96,15 +97,16 @@ Agent& Agent::operator=(Agent && other)
     if (this != &other) {
         mAgentId = other.mAgentId;
         mPartyId = other.mPartyId;
-        //if (mSelectionPolicy)
+        if (mSelectionPolicy)
             delete mSelectionPolicy;
         mSelectionPolicy = other.mSelectionPolicy;
-        //other.mSelectionPolicy = 0; //nullptr
+        other.mSelectionPolicy = 0; //nullptr
     }
     return *this;
 }
 Agent::~Agent()
 {
-    //delete  mSelectionPolicy; //TODO check if this needs to come back
+    if (mSelectionPolicy)
+        delete  mSelectionPolicy; //TODO check if this needs to come back
 }
 

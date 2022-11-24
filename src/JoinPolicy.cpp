@@ -2,18 +2,19 @@
 #include "Coalition.h"
 #include "Party.h"
 #include "Agent.h"
+#include "Simulation.h"
 
-Agent* MandatesJoinPolicy::join(vector<Coalition*> offerers, Party& p,int aId)
+Coalition& MandatesJoinPolicy::join(Simulation& s, vector<int>& offerersIds, Party& p,int aId)
 {
-	Coalition* _c = offerers[0];
-	int maxMandates = _c->getMandates();
+	Coalition& _c = s.getCoalById(offerersIds[0]);
+	int maxMandates = _c.getMandates();
 	int saveInd = 0;
-	for (int i = 0; i < abs(offerers.size()); i++)
-		if (offerers[i]->getMandates() > maxMandates) {
-			_c = offerers[i];
+	for (int i = 0; i < abs(offerersIds.size()); i++)
+		if (s.getCoalById(offerersIds[i]).getMandates() > maxMandates) {
+			_c = s.getCoalById(offerersIds[i]);
 			saveInd = i;
 		}
-	return offerers[saveInd]->join(p, aId);
+	return s.getCoalById(offerersIds[saveInd]).join(p, aId);
 }
 
 JoinPolicy* MandatesJoinPolicy::clone()
@@ -21,9 +22,9 @@ JoinPolicy* MandatesJoinPolicy::clone()
 	return new MandatesJoinPolicy; //TODO check if any work is need in deleting the object
 }
 
-Agent* LastOfferJoinPolicy::join(vector<Coalition*> offerers, Party& p, int aId)
+Coalition& LastOfferJoinPolicy::join(Simulation& s, vector<int>& offerers, Party& p, int aId)
 {
-	return offerers[offerers.size()-1]->join(p, aId);
+	return s.getCoalById(offerers[offerers.size()-1]).join(p, aId);
 }
 
 

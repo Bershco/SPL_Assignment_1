@@ -39,7 +39,7 @@ private:
     int mPartyId;
     int coalId;
     SelectionPolicy *mSelectionPolicy;
-    vector<Party*> offeredParties;
+    vector<int> offeredPartiesIds;
 };
 
 #endif

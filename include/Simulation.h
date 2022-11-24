@@ -25,16 +25,16 @@ public:
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
-    int addAgent(Agent& a);
+    int addAgent(Coalition& a, int pId);
 
-    Coalition* getCoalById(int cId);
+    Coalition& getCoalById(int cId);
     int getNumOfAgents() const;
-    const Agent& newAgent(int pId, SelectionPolicy* _sp);
+    // const Agent& newAgent(int pId, SelectionPolicy* _sp);
     void fixAgent_CoalId(Agent& a);
     void initiateCoalitions();
     Graph& getGraph2();
     int getNextAgentId();
-    void helpToDelete();
+    // void helpToDelete();
 
 private:
     Graph mGraph;

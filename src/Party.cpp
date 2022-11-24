@@ -2,7 +2,7 @@
 #include "Simulation.h"
 
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) :
-    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offerers(), timer(0)
+    mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offerersIds(), timer(0)
 {
     // You can change the implementation of the constructor, but not the signature!
 }
@@ -47,11 +47,11 @@ bool Party::isCollectingOffers() const
     return mState == CollectingOffers;
 }
 
-void Party::receiveOffer(Coalition* c)
+void Party::receiveOffer(Coalition& c)
 {
     if (mState == Waiting) 
         setState(CollectingOffers);
-    offerers.push_back(c);
+    offerersIds.push_back(c.getId());
 }
 
 bool Party::isRelativeMajority() const
@@ -59,14 +59,18 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
+bool Party::isNotDummy() const {
+    return mId != -10;
+}
+
 bool Party::receiveOfferFromId(int cId) const {
-    for (int i = 0; i < abs(offerers.size()); i++)
-        if (offerers[i]->getId() == cId)
+    for (int i = 0; i < abs(offerersIds.size()); i++)
+        if (offerersIds[i] == cId)
             return true;
     return false;
 }
 
-Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),  mJoinPolicy(other.mJoinPolicy->clone()), mState(other.mState), offerers(other.offerers), timer(other.timer)
+Party::Party(const Party& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),  mJoinPolicy(other.mJoinPolicy->clone()), mState(other.mState), offerersIds(other.offerersIds), timer(other.timer)
 {
     
 }
@@ -88,8 +92,10 @@ Party& Party::operator=(const Party& other)
 
 
 
-Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerers(other.offerers), timer(other.timer)
-{}
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates),mJoinPolicy(other.mJoinPolicy), mState(other.mState), offerersIds(other.offerersIds), timer(other.timer)
+{
+    other.mJoinPolicy = 0;
+} 
 
 Party& Party::operator=(Party && other)
 {
@@ -118,9 +124,7 @@ void Party::step(Simulation &s)
         timer++;
         if (timer >= 3) {
             setState(Joined);
-            Agent* a = mJoinPolicy->join(offerers, *this, s.getNextAgentId());
-            s.addAgent(*a);
-            //delete &bestOfferer;
+            s.addAgent(mJoinPolicy->join(s,offerersIds, *this, s.getNextAgentId()),mId);
         }
     }
 }
@@ -131,6 +135,7 @@ JoinPolicy* Party::getJoinPolicy(){
 
 Party::~Party()
 {
-    delete  mJoinPolicy; // could be memory leak //is a memory leak
+    if (mJoinPolicy)
+        delete  mJoinPolicy; // could be memory leak //is a memory leak
 }
 
