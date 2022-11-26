@@ -23,7 +23,7 @@ Coalition& Coalition::join(Party& p, int aId)
 	partyIds.push_back(p.getId());
 	mandates += p.getMandates();
 	agentIds.push_back(aId);
-	return *this; //TODO return here
+	return *this;
 }
 
 int Coalition::getRepresentativeId() {

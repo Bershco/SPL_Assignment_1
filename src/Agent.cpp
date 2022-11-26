@@ -62,7 +62,8 @@ Agent& Agent::operator=(const Agent& other)
 {
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
-    //TODO check if coalID is missing
+    coalId = other.coalId;
+    offeredPartiesIds = other.offeredPartiesIds;
     if (mSelectionPolicy)
      delete mSelectionPolicy;
     mSelectionPolicy = mSelectionPolicy->clone();
