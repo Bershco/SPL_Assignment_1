@@ -2,11 +2,12 @@
 #define COALITION
 
 #include <vector>
-#include "Party.h"
-#include "Agent.h"
+
+
 
 using std::vector;
-
+class Agent;
+class Party;
 
 class Coalition {
 public:
@@ -14,12 +15,9 @@ public:
 
 	int getMandates() const;
 	Coalition& join(Party& p, int aId);
-	Agent& cloneAgent(int pId, int aId);
-	bool checkOffers(const Party& p) const;
 	bool operator==(Coalition c);
 	vector<int> getPartyIDs() const;
 	int getId() const;
-	void checkMandates();
 	bool findAgent(Agent& a);
 	int getRepresentativeId();
 

@@ -1,4 +1,6 @@
 #include "Coalition.h"
+#include "Agent.h"
+#include "Party.h"
 
 Coalition::Coalition(const Party& p, Agent& a, int coalId) : cId(coalId), mandates(p.getMandates()), partyIds(), agentIds() {
 	partyIds.push_back(p.getId());
@@ -15,12 +17,6 @@ int Coalition::getId() const {
 	return cId;
 }
 
-// void Coalition::checkMandates() {
-// 	mandates = 0;
-// 	for (int i = 0; i < abs(partyIds.size()); i++) {
-// 		mandates += partyIds[i].getMandates();
-// 	}
-//}
 
 Coalition& Coalition::join(Party& p, int aId)
 {
@@ -34,13 +30,7 @@ int Coalition::getRepresentativeId() {
 	return agentIds[0];
 }
 
-// bool Coalition::checkOffers(const Party& p) const
-// {
-// 	for (int i = 0; i < abs(agentIds.size()); i++)
-// 		if (agentIds[i].offered(p))
-// 			return true;
-// 	return false;
-// }
+
 
 bool Coalition::operator==(Coalition c)
 {

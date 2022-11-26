@@ -1,6 +1,6 @@
 #include "Agent.h"
 #include "Simulation.h"
-
+#include "Party.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) :
     mAgentId(agentId), mPartyId(partyId), coalId(-1), mSelectionPolicy(selectionPolicy), offeredPartiesIds()
@@ -11,9 +11,6 @@ int Agent::getId() const
     return mAgentId;
 }
 
-void Agent::setId(int i) {
-    mAgentId = i;
-}
 
 int Agent::getPartyId() const
 {
@@ -39,20 +36,7 @@ void Agent::step(Simulation &sim)
 }
 
 
-bool Agent::offered(const Party& p) const
-{
-    for (int i = 0; i < abs(offeredPartiesIds.size()); i++) {
-        if (offeredPartiesIds[i] == p.getId()) {
-            return true;
-        }
-    }
-    return false;
-}
 
-SelectionPolicy* Agent::getSelectionPolicy() const
-{
-    return mSelectionPolicy;
-}
 SelectionPolicy* Agent::getSelectionPolicy2() 
 {
     return mSelectionPolicy;
@@ -78,8 +62,8 @@ Agent& Agent::operator=(const Agent& other)
 {
     mAgentId = other.mAgentId;
     mPartyId = other.mPartyId;
-
-    ///if (mSelectionPolicy)
+    //TODO check if coalID is missing
+    if (mSelectionPolicy)
      delete mSelectionPolicy;
     mSelectionPolicy = mSelectionPolicy->clone();
 
@@ -107,6 +91,6 @@ Agent& Agent::operator=(Agent && other)
 Agent::~Agent()
 {
     if (mSelectionPolicy)
-        delete  mSelectionPolicy; //TODO check if this needs to come back
+        delete  mSelectionPolicy; 
 }
 

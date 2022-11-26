@@ -8,6 +8,7 @@
 #include "Agent.h"
 #include "SelectionPolicy.h"
 #include "JoinPolicy.h"
+#include "Party.h"
 
 using json = nlohmann::json;
 using std::string;

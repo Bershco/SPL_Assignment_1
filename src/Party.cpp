@@ -1,5 +1,7 @@
 #include "Party.h"
 #include "Simulation.h"
+#include "Coalition.h"
+
 
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) :
     mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offerersIds(), timer(0)
@@ -32,10 +34,7 @@ int Party::getId() const
     return mId;
 }
 
-int Party::getTimer() const
-{
-    return timer;
-}
+
 
 bool Party::isJoined() const
 {
@@ -59,9 +58,7 @@ bool Party::isRelativeMajority() const
     return getMandates() > 60;
 }
 
-bool Party::isNotDummy() const {
-    return mId != -10;
-}
+
 
 bool Party::receiveOfferFromId(int cId) const {
     for (int i = 0; i < abs(offerersIds.size()); i++)
@@ -129,13 +126,11 @@ void Party::step(Simulation &s)
     }
 }
 
-JoinPolicy* Party::getJoinPolicy(){
-    return mJoinPolicy;
-}
+
 
 Party::~Party()
 {
     if (mJoinPolicy)
-        delete  mJoinPolicy; // could be memory leak //is a memory leak
+        delete  mJoinPolicy; 
 }
 

@@ -19,7 +19,7 @@ Coalition& MandatesJoinPolicy::join(Simulation& s, vector<int>& offerersIds, Par
 
 JoinPolicy* MandatesJoinPolicy::clone()
 {
-	return new MandatesJoinPolicy; //TODO check if any work is need in deleting the object
+	return new MandatesJoinPolicy; 
 }
 
 Coalition& LastOfferJoinPolicy::join(Simulation& s, vector<int>& offerers, Party& p, int aId)
@@ -30,7 +30,7 @@ Coalition& LastOfferJoinPolicy::join(Simulation& s, vector<int>& offerers, Party
 
 JoinPolicy* LastOfferJoinPolicy::clone()
 {
-	return new LastOfferJoinPolicy; //TODO check if any work is need in deleting the object
+	return new LastOfferJoinPolicy; 
 }
 
 JoinPolicy* JoinPolicy::clone()

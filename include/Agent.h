@@ -4,9 +4,9 @@
 #include <vector>
 using std::vector;
 #include "SelectionPolicy.h"
-#include "Party.h"
-#include "Coalition.h" //TODO make sure this is needed fr
 
+
+class Party;
 class Simulation;
 
 class Agent
@@ -16,11 +16,8 @@ public:
 
     int getPartyId() const;
     int getId() const;
-    void setId(int i);
     void step(Simulation &);
-
-    bool offered(const Party& p) const;
-    SelectionPolicy* getSelectionPolicy() const;
+    
     void setCoalId(int cId);
     int getCoalId() const;
     SelectionPolicy* getSelectionPolicy2();

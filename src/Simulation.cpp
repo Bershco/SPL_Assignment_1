@@ -11,21 +11,10 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
         int coalSize = abs(mCoalitions.size());
         mCoalitions.push_back(Coalition(getParty(mAgents[i].getPartyId()),mAgents[i],coalSize));
     }
-    // for (int i = 0; i < abs(mCoalitions.size()); i++) {
-    //     mCoalitions[i].checkMandates();
-    // }
+ 
 }
 
-// void Simulation::helpToDelete(){
-//     for(int i = 0 ; i<abs(mAgents.size());i++){
-//         delete(mAgents[i].getSelectionPolicy2());
-//     }
-//     int numOfParties = mGraph.getNumVertices();
-//     for (int i = 0; i < numOfParties; i++){
-//         delete((mGraph.getParty2(i)).getJoinPolicy());
-//     }
-    
-// }
+
 void Simulation::step()
 {
     int numOfParties = mGraph.getNumVertices();
@@ -136,18 +125,6 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
     return coalitionsByPartyID;
 }
 
-int Simulation::getNumOfAgents() const
-{
-    return mAgents.size();
-}
-
-// const Agent& Simulation::newAgent(int pId, SelectionPolicy* _sp)
-// {
-    
-//     Agent a(abs(mAgents.size()), pId, _sp);
-//     mAgents.push_back(a);
-//     return *(new Agent(a)); //TODO check if any work is need in deleting the object
-// }
 
 Coalition& Simulation::getCoalById(int cId) {
     return mCoalitions[cId];
