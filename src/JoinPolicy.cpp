@@ -1,7 +1,6 @@
 #include "JoinPolicy.h"
 #include "Coalition.h"
 #include "Party.h"
-#include "Agent.h"
 #include "Simulation.h"
 
 Coalition& MandatesJoinPolicy::join(Simulation& s, vector<int>& offerersIds, Party& p,int aId)

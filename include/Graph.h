@@ -2,12 +2,11 @@
 #define GRAPH
 
 #include <vector>
-//#include "Party.h"//TODO CHECK WITH ROEE
+#include "Party.h"
 
 using std::vector;
 
 class Agent;
-class Party; 
 
 class Graph
 {

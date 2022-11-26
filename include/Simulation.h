@@ -7,12 +7,9 @@
 #include "Graph.h"
 #include "Agent.h"
 
-
-//using std::string; //TODO GO OVER WITH ROEE
 using std::vector;
 
 class Party;
-class SelectionPolicy;
 
 class Simulation
 {

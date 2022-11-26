@@ -3,8 +3,6 @@
 
 #include <vector>
 
-
-
 using std::vector;
 class Agent;
 class Party;

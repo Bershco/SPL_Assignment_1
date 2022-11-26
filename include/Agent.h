@@ -6,7 +6,6 @@ using std::vector;
 #include "SelectionPolicy.h"
 
 
-class Party;
 class Simulation;
 
 class Agent
